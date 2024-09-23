@@ -53,27 +53,14 @@ Nous accueillons les contributions de la communauté ! Si vous souhaitez contrib
 <br>
 <table><tr><td><h4 align='center'>License</h4></tr></td>
 <tr><td>
-Z Framework 
 
-Copyright (c) 2024 [z-framework](https://github.com/atoshit/z-framework/)
+Copyright
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+© 2024 [Z Framework](https://github.com/atoshit/z-framework/). Tous droits réservés.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Z Framework est un projet open source publié sous licence MIT. Cela signifie que vous êtes libre d'utiliser, de modifier et de distribuer ce framework, à condition de respecter les termes de la licence.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+**Toutefois, la revente du framework, ainsi que l'appropriation du code, en totalité ou en partie, sous un autre nom, ne sont pas autorisées.** Nous encourageons le partage et l'amélioration du projet dans l'esprit de la communauté open source, tout en protégeant le travail original des contributeurs.
 
-If not, see <https://www.gnu.org/licenses/>
+Pour plus d'informations, veuillez consulter le fichier [LICENSE](./LICENSE) dans ce dépôt.
 </td></tr></table>
