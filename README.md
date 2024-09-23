@@ -45,3 +45,7 @@ Nous accueillons les contributions de la communauté ! Si vous souhaitez contrib
 2. **Créer une branche :** Créez une nouvelle branche pour votre fonctionnalité ou correction de bug.
    ```bash
    git checkout -b nom-de-la-branche
+
+--------------------------------
+
+![Z LOGO 96](https://github.com/user-attachments/assets/71d3388d-40f0-4d5a-9d1a-25175e2447b6)
