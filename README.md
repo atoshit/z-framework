@@ -18,18 +18,18 @@ Z Framework est un framework modulaire et flexible pour le développement de ser
 1. **Télécharger le dépôt :**
    - Clonez le dépôt en utilisant la commande suivante :
      ```bash
-     git clone https://github.com/votre-utilisateur/z-framework.git
+     git clone [https://github.com/votre-utilisateur/z-framework.git](https://github.com/atoshit/fivem-z.git)
      ```
 
 2. **Installation des dépendances :**
-   - Assurez-vous d'avoir toutes les dépendances nécessaires installées (par exemple, MySQL, es_extended).
+   - Assurez-vous d'avoir oxmysql d'installer sur votre serveur (https://github.com/overextended/oxmysql).
    - Importez le fichier `sql/z_framework.sql` dans votre base de données.
 
 3. **Configuration :**
-   - Configurez le fichier `config.lua` pour adapter le framework à votre serveur (nom de la base de données, options de jeu, etc.).
+   - Configurez le fichier `config.lua` pour adapter le framework à votre serveur (coordonnées, options de jeu, etc.).
 
 4. **Démarrage :**
-   - Ajoutez `start z-framework` dans votre fichier `server.cfg` et redémarrez votre serveur FiveM.
+   - Ajoutez `ensure fivem-z` dans votre fichier `server.cfg` et redémarrez votre serveur FiveM.
 
 ## Contribution
 
