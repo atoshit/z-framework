@@ -1,1 +1,1 @@
-# fivem-z
+# Z FiveM Server
