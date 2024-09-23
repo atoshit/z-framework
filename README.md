@@ -49,3 +49,27 @@ Nous accueillons les contributions de la communauté ! Si vous souhaitez contrib
 --------------------------------
 
 ![Z LOGO 96](https://github.com/user-attachments/assets/71d3388d-40f0-4d5a-9d1a-25175e2447b6)
+
+<br>
+<table><tr><td><h4 align='center'>Legal Notices</h4></tr></td>
+<tr><td>
+ESX Core (ESX-legacy)
+
+ Copyright (C) 2015-2024 [ESX-Framework](https://github.com/esx-framework)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+
+You should have received a copy of the GNU General Public License
+along with this program.
+If not, see <https://www.gnu.org/licenses/>
+</td></tr></table>
