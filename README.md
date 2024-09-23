@@ -18,7 +18,7 @@ Z Framework est un framework modulaire et flexible pour le développement de ser
 1. **Télécharger le dépôt :**
    - Clonez le dépôt en utilisant la commande suivante :
      ```bash
-     git clone [https://github.com/votre-utilisateur/z-framework.git](https://github.com/atoshit/fivem-z.git)
+     git clone https://github.com/atoshit/z-framework.git
      ```
 
 2. **Installation des dépendances :**
@@ -29,7 +29,7 @@ Z Framework est un framework modulaire et flexible pour le développement de ser
    - Configurez le fichier `config.lua` pour adapter le framework à votre serveur (coordonnées, options de jeu, etc.).
 
 4. **Démarrage :**
-   - Ajoutez `ensure fivem-z` dans votre fichier `server.cfg` et redémarrez votre serveur FiveM.
+   - Ajoutez `ensure z-framework` dans votre fichier `server.cfg` et redémarrez votre serveur FiveM.
 
 ## Contribution
 
