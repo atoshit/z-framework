@@ -36,12 +36,32 @@ Z Framework est un framework modulaire et flexible pour le développement de ser
 ## Documentation
 ### Commandes
 ### Fonctions
-#### IO:
+#### Client:
    - ```Z.IO.Trace```
    - ```Z.IO.Debug```
    - ```Z.IO.Info```
    - ```Z.IO.Warn```
    - ```Z.IO.Error```
+   - ```Z.Event.Register```
+   - ```Z.Event.Trigger```
+   - ```Z.Event.TriggerServer```
+   - ```Z.Callback.RegisterClient```
+   - ```Z.Callback.UnregisterClient```
+   - ```Z.Callback.TriggerServer```
+   - ```Z.Callback.TriggerClient```
+#### Server:
+      - ```Z.IO.Trace```
+   - ```Z.IO.Debug```
+   - ```Z.IO.Info```
+   - ```Z.IO.Warn```
+   - ```Z.IO.Error```
+   - ```Z.Event.Register```
+   - ```Z.Event.Trigger```
+   - ```Z.Event.TriggerClient```
+   - ```Z.Callback.RegisterServer```
+   - ```Z.Callback.UnregisterServer```
+   - ```Z.Callback.TriggerClient```
+   - ```Z.Callback.TriggerServer```
 ### Events
 
 ## Contribution
