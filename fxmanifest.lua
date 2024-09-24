@@ -16,6 +16,7 @@ shared_scripts {
 
     -- Libs
     'shared/libs/io.lua',
+    'shared/libs/event.lua',
 }
 
 server_scripts {
