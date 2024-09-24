@@ -49,23 +49,29 @@ function Z.Event.Trigger(name, ...)
     end
 end
 
---- Trigger a server event
---- @param name string: The event name
---- @vararg any: The event arguments
-function Z.Event.TriggerServer(name, ...)
-    TriggerServerEvent(name, ...)
-    logEvent("Event", name, CONTEXT_CLIENT_TO_SERVER)
-end
+if IsDuplicityVersion() then
 
---- Trigger a client event
---- @param name string: The event name
---- @param playerId number: The player id
---- @vararg any: The event arguments
-function Z.Event.TriggerClient(name, playerId, ...)
-    TriggerClientEvent(name, playerId, ...)
-    if playerId == -1 then
-        logEvent("Event", name, CONTEXT_SERVER_TO_CLIENT .. " for all players")
-    else
-        logEvent("Event", name, CONTEXT_SERVER_TO_CLIENT .. (" for player %s"):format(playerId))
+    --- Trigger a client event
+    --- @param name string: The event name
+    --- @param playerId number: The player id
+    --- @vararg any: The event arguments
+    function Z.Event.TriggerClient(name, playerId, ...)
+        TriggerClientEvent(name, playerId, ...)
+        if playerId == -1 then
+            logEvent("Event", name, CONTEXT_SERVER_TO_CLIENT .. " for all players")
+        else
+            logEvent("Event", name, CONTEXT_SERVER_TO_CLIENT .. (" for player %s"):format(playerId))
+        end
     end
+
+else
+
+    --- Trigger a server event
+    --- @param name string: The event name
+    --- @vararg any: The event arguments
+    function Z.Event.TriggerServer(name, ...)
+        TriggerServerEvent(name, ...)
+        logEvent("Event", name, CONTEXT_CLIENT_TO_SERVER)
+    end
+
 end

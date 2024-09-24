@@ -17,6 +17,7 @@ shared_scripts {
     -- Libs
     'shared/libs/io.lua',
     'shared/libs/event.lua',
+    'shared/libs/callback.lua',
 }
 
 server_scripts {
@@ -36,4 +37,30 @@ client_scripts {
 
     -- Class
     'client/class/*.lua',
+}
+
+exports {
+    -- Event
+    'Z.Event.Register',
+    'Z.Event.Trigger',
+    'Z.Event.TriggerServer',
+
+    -- Callback
+    'Z.Callback.RegisterClient',
+    'Z.Callback.UnregisterClient',
+    'Z.Callback.TriggerClient',
+    'Z.Callback.TriggerServer'
+}
+
+server_exports {
+    -- Event
+    'Z.Event.Register',
+    'Z.Event.Trigger',
+    'Z.Event.TriggerClient',
+
+    -- Callback
+    'Z.Callback.RegisterServer',
+    'Z.Callback.UnregisterServer',
+    'Z.Callback.TriggerClient',
+    'Z.Callback.TriggerServer'
 }
