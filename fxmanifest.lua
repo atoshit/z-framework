@@ -47,7 +47,6 @@ exports {
 
     -- Callback
     'Z.Callback.RegisterClient',
-    'Z.Callback.UnregisterClient',
     'Z.Callback.TriggerClient',
     'Z.Callback.TriggerServer'
 }
@@ -60,7 +59,6 @@ server_exports {
 
     -- Callback
     'Z.Callback.RegisterServer',
-    'Z.Callback.UnregisterServer',
     'Z.Callback.TriggerClient',
     'Z.Callback.TriggerServer'
 }

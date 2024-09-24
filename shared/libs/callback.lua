@@ -50,13 +50,6 @@ if IsDuplicityVersion() then
         return eventData
     end
 
-    --- Unregister a server callback
-    --- @param eventData number: The event data
-    function Z.Callback.UnregisterServer(eventData)
-        RemoveEventHandler(eventData)
-        Z.IO.Trace(('Unregistering server callback %s'):format(eventData))
-    end
-
     --- Trigger a client callback
     --- @param args table: The arguments
     function Z.Callback.TriggerClient(args)
@@ -147,13 +140,6 @@ else
         return eventData
     end
 
-    --- Unregister a client callback
-    --- @param eventData number: The event data
-    function Z.Callback.UnregisterClient(eventData)
-        RemoveEventHandler(eventData)
-        Z.IO.Trace(('Unregistering client callback %s'):format(eventData))
-    end
-
     --- Trigger a server callback
     --- @param args table: The arguments
     function Z.Callback.TriggerServer(args)
@@ -242,5 +228,4 @@ end
             print("Server did not respond in time.")
         end
     })
-
 ]]
