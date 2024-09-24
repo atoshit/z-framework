@@ -11,10 +11,28 @@ shared_scripts {
     'config.lua',
     'init.lua',
 
+    -- Enums
     'shared/enums/color.lua',
+
+    -- Libs
     'shared/libs/io.lua',
 }
 
 server_scripts {
-    '@oxmysql/lib/MySQL.lua'
+    -- MySQL
+    '@oxmysql/lib/MySQL.lua',
+
+    -- Manager
+    'server/manager/*.lua',
+
+    -- Class
+    'server/class/*.lua',
+}
+
+client_scripts {
+    -- Manager
+    'client/manager/*.lua',
+
+    -- Class
+    'client/class/*.lua',
 }
