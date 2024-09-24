@@ -24,6 +24,7 @@ Z Framework est un framework modulaire et flexible pour le développement de ser
 
 2. **Installation des dépendances :**
    - Assurez-vous d'avoir oxmysql d'installer sur votre serveur (https://github.com/overextended/oxmysql).
+   - Assurez-vous aussi d'avoir oxmysql chargé avant z-framework dans le server.cfg
    - Importez le fichier `sql/z_framework.sql` dans votre base de données.
 
 3. **Configuration :**
