@@ -6,9 +6,9 @@ local function loadPlayer()
 
 end
 
-C.CreateThread(function()
+Ctz.CreateThread(function()
     repeat
-        C.Wait(100)
+        Ctz.Wait(100)
     until NetworkIsSessionStarted() and NetworkIsPlayerActive(PlayerId())
 
     loadPlayer()
