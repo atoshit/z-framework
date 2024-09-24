@@ -9,6 +9,11 @@ local REJECTING = 2
 local RESOLVED = 3
 local REJECTED = 4
 
+--- Ensure that the object is of the expected type
+--- @param obj any: The object to check
+--- @param typeof string|function: The expected type
+--- @param opt_typeof string|nil: The optional expected type
+--- @param errMessage string|nil: The error message
 local function ensure(obj, typeof, opt_typeof, errMessage)
     local objtype = type(obj)
     local di = debug_getinfo(2)
@@ -25,6 +30,9 @@ local function ensure(obj, typeof, opt_typeof, errMessage)
 end
 
 if IsDuplicityVersion() then
+
+    --- Register a new server callback
+    --- @param args table: The arguments
     function Z.Callback.RegisterServer(args)
         ensure(args, 'table'); ensure(args.eventName, 'string'); ensure(args.eventCallback, 'function')
         Z.IO.Trace(('Registering server callback %s'):format(args.eventName))
@@ -42,11 +50,15 @@ if IsDuplicityVersion() then
         return eventData
     end
 
+    --- Unregister a server callback
+    --- @param eventData number: The event data
     function Z.Callback.UnregisterServer(eventData)
         RemoveEventHandler(eventData)
         Z.IO.Trace(('Unregistering server callback %s'):format(eventData))
     end
 
+    --- Trigger a client callback
+    --- @param args table: The arguments
     function Z.Callback.TriggerClient(args)
         ensure(args, 'table'); ensure(args.source, 'string', 'number'); ensure(args.eventName, 'string'); ensure(args.args, 'table', 'nil'); ensure(args.timeout, 'number', 'nil'); ensure(args.timedout, 'function', 'nil'); ensure(args.callback, 'function', 'nil')
 
@@ -84,6 +96,8 @@ if IsDuplicityVersion() then
         end
     end
 
+    --- Trigger a server callback
+    --- @param args table: The arguments
     function Z.Callback.TriggerServer(args)
         ensure(args, 'table'); ensure(args.source, 'string', 'number'); ensure(args.eventName, 'string'); ensure(args.args, 'table', 'nil'); ensure(args.timeout, 'number', 'nil'); ensure(args.timedout, 'function', 'nil'); ensure(args.callback, 'function', 'nil')
 
@@ -115,6 +129,8 @@ if IsDuplicityVersion() then
 else
     local SERVER_ID = GetPlayerServerId(PlayerId())
 
+    --- Register a new client callback
+    --- @param args table: The arguments
     function Z.Callback.RegisterClient(args)
         ensure(args, 'table'); ensure(args.eventName, 'string'); ensure(args.eventCallback, 'function')
         Z.IO.Trace(('Registering client callback %s'):format(args.eventName))
@@ -131,11 +147,15 @@ else
         return eventData
     end
 
+    --- Unregister a client callback
+    --- @param eventData number: The event data
     function Z.Callback.UnregisterClient(eventData)
         RemoveEventHandler(eventData)
         Z.IO.Trace(('Unregistering client callback %s'):format(eventData))
     end
 
+    --- Trigger a server callback
+    --- @param args table: The arguments
     function Z.Callback.TriggerServer(args)
         ensure(args, 'table'); ensure(args.args, 'table', 'nil'); ensure(args.eventName, 'string'); ensure(args.timeout, 'number', 'nil'); ensure(args.timedout, 'function', 'nil'); ensure(args.callback, 'function', 'nil')
 
@@ -168,6 +188,8 @@ else
         end
     end
 
+    --- Trigger a client callback
+    --- @param args table: The arguments
     function Z.Callback.TriggerClient(args)
         ensure(args, 'table'); ensure(args.eventName, 'string'); ensure(args.args, 'table', 'nil'); ensure(args.timeout, 'number', 'nil'); ensure(args.timedout, 'function', 'nil'); ensure(args.callback, 'function', 'nil')
 
