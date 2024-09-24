@@ -36,7 +36,7 @@ Z Framework est un framework modulaire et flexible pour le développement de ser
 ## Documentation
 ### Commandes
 ### Fonctions
-IO:
+#### IO:
    - ```Z.IO.Trace```
    - ```Z.IO.Debug```
    - ```Z.IO.Info```
