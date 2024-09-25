@@ -16,13 +16,15 @@ shared_scripts {
 
     -- Libs
     'shared/libs/io.lua',
-    'shared/libs/event.lua',
-    'shared/libs/callback.lua',
+    'shared/libs/event.lua'
 }
 
 server_scripts {
     -- MySQL
     '@oxmysql/lib/MySQL.lua',
+
+    -- Functions
+    'server/functions/*.lua',
 
     -- Manager
     'server/manager/*.lua',
@@ -46,22 +48,12 @@ exports {
     -- Event
     'Z.Event.Register',
     'Z.Event.Trigger',
-    'Z.Event.TriggerServer',
-
-    -- Callback
-    'Z.Callback.RegisterClient',
-    'Z.Callback.TriggerClient',
-    'Z.Callback.TriggerServer'
+    'Z.Event.TriggerServer'
 }
 
 server_exports {
     -- Event
     'Z.Event.Register',
     'Z.Event.Trigger',
-    'Z.Event.TriggerClient',
-
-    -- Callback
-    'Z.Callback.RegisterServer',
-    'Z.Callback.TriggerClient',
-    'Z.Callback.TriggerServer'
+    'Z.Event.TriggerClient'
 }

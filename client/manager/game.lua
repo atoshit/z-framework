@@ -1,4 +1,4 @@
-CreateThread(function()
+Ctz.CreateThread(function()
     local playerId = PlayerId()
 
     Z.Function.togglePvp(Config.TogglePvp, playerId)

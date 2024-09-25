@@ -15,6 +15,14 @@ local Config <const> = {
         weapon = nil, -- table or nil
     },
 
+    DiscordPresence = {
+        appId = '1288422064188952639',
+        largeImage = 'logo',
+        largeText = 'developed by Atoshi',
+        button = {label = 'Github', url = 'https://github.com/atoshit/z-framework'},
+        waitTime = 10000
+    },
+
     TogglePvp = true,
     ToggleNpcDrops = false,
     ToggleNpcHealthRegeneration = false,

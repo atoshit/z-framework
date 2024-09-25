@@ -24,6 +24,10 @@ local function loadPlayer()
     until NetworkIsPlayerActive(PlayerId())
 
     Z.IO.Trace('Player is active, spawning player...')
+
+    local test = Z.Callback.Trigger("getVehiclePositionFromPlate", 1)
+    print(test)
+
     spawnPlayer(Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h)
 end
 
