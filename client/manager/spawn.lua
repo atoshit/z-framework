@@ -3,10 +3,10 @@ local function spawnPlayer(x, y, z, h)
         Ctz.Wait(100)
     until DoesEntityExist(PlayerPedId())
 
-    Z.Functions.setPlayerModel(PlayerId(), 'mp_m_freemode_01')
-    Z.Functions.setEntityCoords(PlayerPedId(), x, y, z, false, false, false)
-    Z.Functions.setEntityHeading(PlayerPedId(), h)
-    Z.Functions.loadingHide()
+    Z.Function.setPlayerModel(PlayerId(), 'mp_m_freemode_01')
+    Z.Function.setEntityCoords(PlayerPedId(), x, y, z, false, false, false)
+    Z.Function.setEntityHeading(PlayerPedId(), h)
+    Z.Function.loadingHide()
 
     if DoesEntityExist(PlayerPedId()) then
         SetPedDefaultComponentVariation(PlayerPedId())

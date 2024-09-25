@@ -1,5 +1,5 @@
 --- Loading Hide
-function Z.Functions.loadingHide()
+function Z.Function.loadingHide()
     if IsLoadingPromptBeingDisplayed() then
         RemoveLoadingPrompt()
         ShutdownLoadingScreen()

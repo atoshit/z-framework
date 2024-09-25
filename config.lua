@@ -13,7 +13,14 @@ local Config <const> = {
         bank = 5000, -- number or nil
         item = {}, -- table or nil
         weapon = nil, -- table or nil
-    }
+    },
+
+    TogglePvp = true,
+    ToggleNpcDrops = false,
+    ToggleNpcHealthRegeneration = false,
+    ToggleDefaultWantedLevel = false,
+    ToggleDispatchService = false,
+    ToggleScenarios = false
 }
 
 _ENV.Config = Config

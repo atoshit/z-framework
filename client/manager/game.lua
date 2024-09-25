@@ -1,0 +1,10 @@
+CreateThread(function()
+    local playerId = PlayerId()
+
+    Z.Function.togglePvp(Config.TogglePvp, playerId)
+    Z.Function.toggleNpcDrops(Config.ToggleNpcDrops, playerId)
+    Z.Function.toggleNpcHealthRegeneration(Config.ToggleNpcHealthRegeneration, playerId)
+    Z.Function.toggleDefaultWantedLevel(Config.ToggleDefaultWantedLevel, playerId)
+    Z.Function.toggleDispatchService(Config.ToggleDispatchService, playerId)
+    Z.Function.toggleScenarios(Config.ToggleScenarios)
+end)
