@@ -45,9 +45,12 @@ Z Framework est un framework modulaire et flexible pour le développement de ser
    - ```Z.Event.Register```
    - ```Z.Event.Trigger```
    - ```Z.Event.TriggerServer```
-   - ```Z.Callback.RegisterClient```
-   - ```Z.Callback.TriggerServer```
-   - ```Z.Callback.TriggerClient```
+   - ```Z.Callback.Register```
+   - ```Z.Callback.Remove```
+   - ```Z.Callback.TriggerWithTimeout```
+   - ```Z.Callback.Trigger```
+   - ```Z.Callback.TriggerWithTimeoutAsync```
+   - ```Z.Callback.TriggerAsync```
 #### Server:
    - ```Z.IO.Trace```
    - ```Z.IO.Debug```
@@ -57,9 +60,12 @@ Z Framework est un framework modulaire et flexible pour le développement de ser
    - ```Z.Event.Register```
    - ```Z.Event.Trigger```
    - ```Z.Event.TriggerClient```
-   - ```Z.Callback.RegisterServer```
-   - ```Z.Callback.TriggerClient```
-   - ```Z.Callback.TriggerServer```
+   - ```Z.Callback.Register```
+   - ```Z.Callback.Remove```
+   - ```Z.Callback.TriggerWithTimeout```
+   - ```Z.Callback.Trigger```
+   - ```Z.Callback.TriggerWithTimeoutAsync```
+   - ```Z.Callback.TriggerAsync```
 ### Events
 
 ## Contribution
