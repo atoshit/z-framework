@@ -32,6 +32,9 @@ server_scripts {
 }
 
 client_scripts {
+    -- Functions
+    'client/functions/*.lua',
+
     -- Manager
     'client/manager/*.lua',
 

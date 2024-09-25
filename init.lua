@@ -13,4 +13,7 @@ Z.Event = Z.Event or {}
 --- Z-Framework Callback
 Z.Callback = Z.Callback or {}
 
+--- Z-Framework Functions
+Z.Functions = Z.Functions or {}
+
 Ctz = Citizen

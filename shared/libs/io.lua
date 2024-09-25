@@ -1,5 +1,5 @@
 --- Format console messages with color
---- @vararg any: Messages to format
+--- @vararg any Messages to format
 local function formatConsoleMsg(...)
     local args = {...}
     local colorDefault = Z.Enums.Color["Default"]
@@ -20,8 +20,8 @@ local LogLevels = {
 }
 
 --- Log a message to the console
---- @param level string: The log level
---- @vararg any: Messages to log
+--- @param level string The log level
+--- @vararg any Messages to log
 local function log(level, ...)
     if level == "DEBUG" and not Config.Debug then return end
 

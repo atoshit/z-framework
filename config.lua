@@ -8,7 +8,7 @@ local Config <const> = {
     },
 
     Start = {
-        spawn = {x = 0, y = 0, z = 0, h = 0},
+        spawn = {x = -221.74, y = -1053.19, z = 30.13, h = 164.00},
         cash = 5000, -- number or nil
         bank = 5000, -- number or nil
         item = {}, -- table or nil
