@@ -10,7 +10,6 @@ version '1.0.0'
 shared_scripts {
     'config.lua',
     'init.lua',
-    'imports.lua',
 
     -- Enums
     'shared/enums/color.lua',
@@ -29,9 +28,6 @@ server_scripts {
 
     -- Manager
     'server/manager/*.lua',
-
-    -- Main
-    'server/main.lua'
 }
 
 client_scripts {

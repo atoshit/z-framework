@@ -36,4 +36,3 @@ Ctz.CreateThread(function()
     Z.IO.Trace('Session started, loading player...')
     Z.Event.TriggerServer('z-spawn:loadPlayer')
 end)
-
