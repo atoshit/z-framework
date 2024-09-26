@@ -12,6 +12,7 @@ Z.Event.Register('z-spawn:loadPlayer', function()
                 Z.Event.TriggerClient('z-spawn:loadPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h)
             end
         else
+            MySQL.execute('INSERT INTO `players` (`license`, `position`) VALUES (?, ?)', {license, json.encode({x = Config.Start.spawn.x, y = Config.Start.spawn.y, z = Config.Start.spawn.z, h = Config.Start.spawn.h})})
             Z.Event.TriggerClient('z-spawn:loadPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h)
         end
     end)
