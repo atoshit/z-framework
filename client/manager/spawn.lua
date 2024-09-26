@@ -18,18 +18,15 @@ local function spawnPlayer(x, y, z, h)
     end
 end
 
-local function loadPlayer()
+Z.Event.Register('z-spawn:loadPlayer', function(x, y, z, h)
     repeat
         Ctz.Wait(100)
     until NetworkIsPlayerActive(PlayerId())
 
     Z.IO.Trace('Player is active, spawning player...')
 
-    local test = Z.Callback.Trigger("getVehiclePositionFromPlate", 1)
-    print(test)
-
-    spawnPlayer(Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h)
-end
+    spawnPlayer(x, y, z, h)
+end)
 
 Ctz.CreateThread(function()
     repeat
@@ -37,6 +34,6 @@ Ctz.CreateThread(function()
     until NetworkIsSessionStarted()
 
     Z.IO.Trace('Session started, loading player...')
-    loadPlayer()
+    Z.Event.TriggerServer('z-spawn:loadPlayer')
 end)
 

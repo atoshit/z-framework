@@ -23,9 +23,6 @@ server_scripts {
     -- MySQL
     '@oxmysql/lib/MySQL.lua',
 
-    -- Functions
-    'server/functions/*.lua',
-
     -- Manager
     'server/manager/*.lua',
 
