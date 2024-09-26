@@ -10,6 +10,7 @@ version '1.0.0'
 shared_scripts {
     'config.lua',
     'init.lua',
+    'exports.lua',
 
     -- Enums
     'shared/enums/color.lua',
