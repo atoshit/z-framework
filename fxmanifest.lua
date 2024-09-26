@@ -10,6 +10,7 @@ version '1.0.0'
 shared_scripts {
     'config.lua',
     'init.lua',
+    'imports.lua',
 
     -- Enums
     'shared/enums/color.lua',
@@ -23,11 +24,14 @@ server_scripts {
     -- MySQL
     '@oxmysql/lib/MySQL.lua',
 
+    -- Class
+    'server/class/*.lua',
+
     -- Manager
     'server/manager/*.lua',
 
-    -- Class
-    'server/class/*.lua',
+    -- Main
+    'server/main.lua'
 }
 
 client_scripts {
