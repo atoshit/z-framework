@@ -1,3 +1,8 @@
+--- Spawn Player
+--- @param x number X coordinate
+--- @param y number Y coordinate
+--- @param z number Z coordinate
+--- @param h number Heading
 local function spawnPlayer(x, y, z, h)
     repeat
         Ctz.Wait(100)
