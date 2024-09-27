@@ -4,7 +4,8 @@ local Config <const> = {
 
     Color = {
         rgba = {r = 238, g = 172, b = 1, a = 255}, -- Yellow (https://htmlcolorcodes.com/fr/)
-        hex = "#eeac01" -- Yellow (https://htmlcolorcodes.com/fr/)
+        hex = "#eeac01", -- Yellow (https://htmlcolorcodes.com/fr/)
+        default = '~y~'
     },
 
     Start = {
