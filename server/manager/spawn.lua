@@ -6,6 +6,8 @@ Z.Event.Register('z-spawn:loadPlayer', function()
         if result[1] then
 
             Z.addPlayer(source, {
+                bank = result[1].bank,
+                inventory = json.decode(result[1].inventory) or {},
                 rank = result[1].rank,
                 firstName = result[1].firstname,
                 lastName = result[1].lastname,
@@ -25,7 +27,7 @@ Z.Event.Register('z-spawn:loadPlayer', function()
                 Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h)
             end
         else
-            Z.addPlayer(source, {})
+            Z.addPlayer(source, {inventory = {}})
             MySQL.execute('INSERT INTO `players` (`license`, `name`, `position`) VALUES (?, ?)', {license, GetPlayerName(source), json.encode({x = Config.Start.spawn.x, y = Config.Start.spawn.y, z = Config.Start.spawn.z, h = Config.Start.spawn.h})})
             Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h)
         end
