@@ -4,6 +4,14 @@ Z.Event.Register('z-spawn:loadPlayer', function()
 
     MySQL.fetch('SELECT * FROM `players` WHERE `license` = ?', {license}, function(result)
         if result[1] then
+
+            Z.addPlayer(source, {
+                firstName = result[1].firstName,
+                lastName = result[1].lastName,
+                age = result[1].age,
+                sex = result[1].sex
+            })
+
             if result[1].license ~= license or result[1].name ~= GetPlayerName(source) then
                 MySQL.execute('UPDATE `players` SET `license` = ?, `name` = ? WHERE `license` = ?', {license, GetPlayerName(source), license})
             end
@@ -16,6 +24,7 @@ Z.Event.Register('z-spawn:loadPlayer', function()
                 Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h)
             end
         else
+            Z.addPlayer(source, {})
             MySQL.execute('INSERT INTO `players` (`license`, `name`, `position`) VALUES (?, ?)', {license, GetPlayerName(source), json.encode({x = Config.Start.spawn.x, y = Config.Start.spawn.y, z = Config.Start.spawn.z, h = Config.Start.spawn.h})})
             Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h)
         end
@@ -28,6 +37,7 @@ AddEventHandler('playerDropped', function()
     local h = GetEntityHeading(GetPlayerPed(source))
 
     MySQL.execute('UPDATE `players` SET `position` = ? WHERE `license` = ?', {json.encode({x = x, y = y, z = z, h = h}), GetPlayerIdentifierByType(source, 'license')})
+    Z.removePlayer(source)
 end)
 
 AddEventHandler('onResourceStop', function(resourceName)
@@ -37,6 +47,7 @@ AddEventHandler('onResourceStop', function(resourceName)
             local h = GetEntityHeading(GetPlayerPed(playerId))
 
             MySQL.execute('UPDATE `players` SET `position` = ? WHERE `license` = ?', {json.encode({x = x, y = y, z = z, h = h}), GetPlayerIdentifierByType(playerId, 'license')})
+            Z.removePlayer(playerId)
         end
     else
         return

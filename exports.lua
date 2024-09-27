@@ -1,3 +1,3 @@
-exports('_Z', function()
+exports('GetZ', function()
     return Z
 end)
