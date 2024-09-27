@@ -48,6 +48,8 @@ function Z.createPlayer(source, data)
         self.firstName = firstName
     end
 
+    --- Set First Name of the player
+    --- @param firstName string First Name of the player.
     function player:setFirstName(firstName)
         if not firstName then
             return Z.IO.Error("Argument 'firstName' is missing.")
@@ -60,6 +62,8 @@ function Z.createPlayer(source, data)
         return self.lastName
     end
 
+    --- Set Last Name of the player
+    --- @param lastName string Last Name of the player.
     function player:setLastName(lastName)
         if not lastName then
             return Z.IO.Error("Argument 'lastName' is missing.")
@@ -72,6 +76,8 @@ function Z.createPlayer(source, data)
         return self.age
     end
 
+    --- Set Age of the player
+    --- @param age number Age of the player.
     function player:setAge(age)
         if not age then
             return Z.IO.Error("Argument 'age' is missing.")
@@ -84,6 +90,8 @@ function Z.createPlayer(source, data)
         return self.sex
     end
 
+    --- Set Sex of the player
+    --- @param sex string Sex of the player.
     function player:setSex(sex)
         if not sex or sex ~= "Homme" or sex ~= "Femme" then
             return Z.IO.Error("Argument 'sex' is missing or invalid.")
