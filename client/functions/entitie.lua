@@ -17,6 +17,7 @@ function Z.Function.requestModel(model)
 end
 
 --- Set Player Model
+--- @param player number Player ID
 --- @param model string Model name
 function Z.Function.setPlayerModel(player, model)
     if Z.Function.requestModel(model) then

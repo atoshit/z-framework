@@ -9,8 +9,8 @@ local Config <const> = {
 
     Start = {
         spawn = {x = -221.74, y = -1053.19, z = 30.13, h = 164.00},
-        cash = 5000, -- number or nil
-        bank = 5000, -- number or nil
+        cash = 5000,
+        bank = 5000,
         item = {}, -- table or nil
         weapon = nil, -- table or nil
     },
