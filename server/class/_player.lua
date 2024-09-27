@@ -6,10 +6,16 @@
 --- @field getName fun():string Get the player's name.
 --- @field firstName string The player's first name.
 --- @field getFirstName fun():string Get the player's first name.
+--- @field setFirstName fun(firstName:string):void Set the player's first name.
 --- @field lastName string The player's last name.
 --- @field getLastName fun():string Get the player's last name.
+--- @field setLastName fun(lastName:string):void Set the player's last name.
 --- @field age number The player's age.
 --- @field getAge fun():number Get the player's age.
+--- @field setAge fun(age:number):void Set the player's age
+--- @field sex string Sex of the player.
+--- @field getSex fun():string Get the sex
+--- @field setSex fun(age:string):void Set the sex
 Z.Players = {}
 
 --- Create Player
@@ -19,10 +25,11 @@ function Z.createPlayer(source, data)
     local player = {
         identifier = GetPlayerIdentifier(source, 0),
         name = GetPlayerName(source),
-        firstName = data.firstName or 'Unknown',
-        lastName = data.lastName or 'Unknown',
+        rank = data.rank or "user",
+        firstName = data.firstName or "Unknown",
+        lastName = data.lastName or "Unknown",
         age = data.age or 21,
-        sex = data.sex or 'Homme',
+        sex = data.sex or "Homme",
     }
 
     function player:getName()
@@ -37,16 +44,52 @@ function Z.createPlayer(source, data)
         return self.firstName
     end
 
+    function player:setFirstName(firstName)
+        self.firstName = firstName
+    end
+
+    function player:setFirstName(firstName)
+        if not firstName then
+            return Z.IO.Error("Argument 'firstName' is missing.")
+        end
+
+        self.firstName = firstName
+    end
+
     function player:getLastName()
         return self.lastName
+    end
+
+    function player:setLastName(lastName)
+        if not lastName then
+            return Z.IO.Error("Argument 'lastName' is missing.")
+        end
+
+        self.lastName = lastName
     end
 
     function player:getAge()
         return self.age
     end
 
+    function player:setAge(age)
+        if not age then
+            return Z.IO.Error("Argument 'age' is missing.")
+        end
+
+        self.age = age
+    end
+
     function player:getSex()
         return self.sex
+    end
+
+    function player:setSex(sex)
+        if not sex or sex ~= "Homme" or sex ~= "Femme" then
+            return Z.IO.Error("Argument 'sex' is missing or invalid.")
+        end
+
+        self.sex = sex
     end
 
     return player

@@ -6,8 +6,9 @@ Z.Event.Register('z-spawn:loadPlayer', function()
         if result[1] then
 
             Z.addPlayer(source, {
-                firstName = result[1].firstName,
-                lastName = result[1].lastName,
+                rank = result[1].rank,
+                firstName = result[1].firstname,
+                lastName = result[1].lastname,
                 age = result[1].age,
                 sex = result[1].sex
             })
