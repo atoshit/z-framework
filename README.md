@@ -51,6 +51,16 @@ Z Framework est un framework modulaire et flexible pour le développement de ser
    - ```Z.Callback.Trigger```
    - ```Z.Callback.TriggerWithTimeoutAsync```
    - ```Z.Callback.TriggerAsync```
+   - ```Z.Function.requestModel```
+   - ```Z.Function.setPlayerModel```
+   - ```Z.Function.setEntityCoords```
+   - ```Z.Function.setEntityHeading```
+   - ```Z.Function.toggleNpcDrops```
+   - ```Z.Function.toggleNpcHealthRegeneration```
+   - ```Z.Function.toggleDefaultWantedLevel```
+   - ```Z.Function.toggleDispatchService```
+   - ```Z.Function.togglePvp```
+   - ```Z.Function.loadingHide```
 #### Server:
    - ```Z.Io.Trace```
    - ```Z.Io.Debug```
@@ -66,9 +76,9 @@ Z Framework est un framework modulaire et flexible pour le développement de ser
    - ```Z.Callback.Trigger```
    - ```Z.Callback.TriggerWithTimeoutAsync```
    - ```Z.Callback.TriggerAsync```
+   - ```Z.getPlayer``` (Renvoie l'objet player)
 ### Events
    - ```z-framework:playerLoaded```
-
 ## Contribution
 
 Nous accueillons les contributions de la communauté ! Si vous souhaitez contribuer au développement de Z Framework, suivez ces étapes :
