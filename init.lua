@@ -15,7 +15,7 @@ Z = {}
 --- @field Error fun(message:string):void Error message
 --- @field Info fun(message:string):void Info message
 --- @field Success fun(message:string):void Success message
-Z.IO = Z.IO or {}
+Z.Io = Z.Io or {}
 
 --- Z-Framework Enums
 --- @class Z.Enums

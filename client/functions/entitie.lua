@@ -2,7 +2,7 @@
 --- @param model string Model name
 function Z.Function.requestModel(model)
     if not IsModelInCdimage(model) or not IsModelValid(model) then
-        Z.IO.Warn('(Z.Function.requestModel) Model not found: ' .. model)
+        Z.Io.Warn('(Z.Function.requestModel) Model not found: ' .. model)
         return false
     end
 
@@ -12,7 +12,7 @@ function Z.Function.requestModel(model)
         Ctz.Wait(100)
     end
 
-    Z.IO.Trace('(Z.Function.requestModel) Model loaded: ' .. model)
+    Z.Io.Trace('(Z.Function.requestModel) Model loaded: ' .. model)
     return true
 end
 
@@ -23,7 +23,7 @@ function Z.Function.setPlayerModel(player, model)
     if Z.Function.requestModel(model) then
         SetPlayerModel(player, model)
         SetModelAsNoLongerNeeded(model)
-        Z.IO.Trace('(Z.Function.setPlayerModel) Player model set: ' .. model)
+        Z.Io.Trace('(Z.Function.setPlayerModel) Player model set: ' .. model)
         return true
     end
 end
@@ -38,7 +38,7 @@ end
 --- @param clearArea boolean Whether to clear any entities in the target area.
 function Z.Function.setEntityCoords(entity, x, y, z, deadFlag, ragdollFlag, clearArea)
     if not DoesEntityExist(entity) then
-        Z.IO.Warn('(Z.Function.setEntityCoords) Entity does not exist: ' .. entity)
+        Z.Io.Warn('(Z.Function.setEntityCoords) Entity does not exist: ' .. entity)
         return false
     end
 
@@ -51,7 +51,7 @@ end
 --- @param heading number Heading
 function Z.Function.setEntityHeading(entity, heading)
     if not DoesEntityExist(entity) then
-        Z.IO.Warn('(Z.Function.setEntityHeading) Entity does not exist: ' .. entity)
+        Z.Io.Warn('(Z.Function.setEntityHeading) Entity does not exist: ' .. entity)
         return false
     end
 

@@ -9,7 +9,7 @@ function Z.Function.toggleNpcDrops(state, playerId)
     for _, pickup in ipairs(weaponPickups) do
         ToggleUsePickupsForPlayer(playerId, pickup, state)
     end
-    Z.IO.Trace("(Z.Function.toggleNpcDrops) Npc drops: ", state)
+    Z.Io.Trace("(Z.Function.toggleNpcDrops) Npc drops: ", state)
 end
 
 --- Disables NPC health regeneration for the player.
@@ -20,7 +20,7 @@ function Z.Function.toggleNpcHealthRegeneration(state, playerId)
     else
         SetPlayerHealthRechargeMultiplier(playerId, 0.0)
     end
-    Z.IO.Trace("(Z.Function.toggleNpcHealthRegeneration) Npc health regeneration: ", state)
+    Z.Io.Trace("(Z.Function.toggleNpcHealthRegeneration) Npc health regeneration: ", state)
 end
 
 --- Disables the default wanted level for the player.
@@ -32,14 +32,14 @@ function Z.Function.toggleDefaultWantedLevel(state, playerId)
         ClearPlayerWantedLevel(playerId)
         SetMaxWantedLevel(0)
     end
-    Z.IO.Trace("(Z.Function.toggleDefaultWantedLevel) Default wanted level: ", state)
+    Z.Io.Trace("(Z.Function.toggleDefaultWantedLevel) Default wanted level: ", state)
 end
 
 --- Disables police dispatch for the player.
 --- @param playerId number The ID of the player to disable dispatch for.
 function Z.Function.toggleDispatchService(state, playerId)
     SetDispatchCopsForPlayer(playerId, state)
-    Z.IO.Trace("(Z.Function.toggleDispatchService) Dispatch service: ", state)
+    Z.Io.Trace("(Z.Function.toggleDispatchService) Dispatch service: ", state)
 end
 
 --- Disables various world scenarios.
@@ -66,7 +66,7 @@ function Z.Function.toggleScenarios(state)
     for _, scenario in ipairs(scenarios) do
         SetScenarioTypeEnabled(scenario, state)
     end
-    Z.IO.Trace("(Z.Function.toggleScenarios) Scenarios: ", state)
+    Z.Io.Trace("(Z.Function.toggleScenarios) Scenarios: ", state)
 end
 
 --- Toggle PVP
@@ -74,5 +74,5 @@ end
 function Z.Function.togglePvp(state)
     SetCanAttackFriendly(PlayerPedId(), state, false)
     NetworkSetFriendlyFireOption(state)
-    Z.IO.Trace("(Z.Function.togglePvp) Pvp: ", state)
+    Z.Io.Trace("(Z.Function.togglePvp) Pvp: ", state)
 end

@@ -10,13 +10,13 @@ local CONTEXT_CLIENT_TO_CLIENT = "[C->C]"
 --- @param name string The event name
 --- @param context string The event context
 local function logEvent(action, name, context)
-    Z.IO.Trace(("%s %s %s"):format(action, name, context))
+    Z.Io.Trace(("%s %s %s"):format(action, name, context))
 end
 
 --- Warn if an event is not registered
 --- @param name string The event name
 local function warnEvent(name)
-    Z.IO.Warn(("Event %s not registered"):format(name))
+    Z.Io.Warn(("Event %s not registered"):format(name))
 end
 
 --- Register a new event
@@ -24,7 +24,7 @@ end
 --- @param cb function The callback function
 function Z.Event.Register(name, cb)
     if not name or type(cb) ~= "function" then
-        Z.IO.Warn("Invalid event name or callback function")
+        Z.Io.Warn("Invalid event name or callback function")
         return
     end
     if not registeredEvents[name] then
@@ -33,7 +33,7 @@ function Z.Event.Register(name, cb)
         AddEventHandler(name, cb)
         logEvent("Event", name, "registered")
     else
-        Z.IO.Warn(("Event %s already registered"):format(name))
+        Z.Io.Warn(("Event %s already registered"):format(name))
     end
 end
 

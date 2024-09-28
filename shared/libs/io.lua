@@ -31,14 +31,14 @@ local function log(level, ...)
     print(formatConsoleMsg(table.unpack(args)))
 end
 
-function Z.IO.Trace(...) log("TRACE", ...) end
-function Z.IO.Debug(...) log("DEBUG", ...) end
-function Z.IO.Info(...) log("INFO", ...) end
-function Z.IO.Warn(...) log("WARN", ...) end
-function Z.IO.Error(...) log("ERROR", ...) end
+function Z.Io.Trace(...) log("TRACE", ...) end
+function Z.Io.Debug(...) log("DEBUG", ...) end
+function Z.Io.Info(...) log("INFO", ...) end
+function Z.Io.Warn(...) log("WARN", ...) end
+function Z.Io.Error(...) log("ERROR", ...) end
 
-Trace = Z.IO.Trace
-Debug = Z.IO.Debug
-Info = Z.IO.Info
-Warn = Z.IO.Warn
-Error = Z.IO.Error
+Trace = Z.Io.Trace
+Debug = Z.Io.Debug
+Info = Z.Io.Info
+Warn = Z.Io.Warn
+Error = Z.Io.Error
