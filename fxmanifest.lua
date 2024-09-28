@@ -46,6 +46,9 @@ server_scripts {
 
     -- Manager
     'server/manager/*.lua',
+
+    -- Commands
+    'server/commands/*.lua',
 }
 
 client_scripts {

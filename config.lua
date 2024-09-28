@@ -30,7 +30,21 @@ local Config <const> = {
     ToggleDefaultWantedLevel = true,
     ToggleDispatchService = true,
     ToggleScenarios = false,
-    BigWater = false
+    BigWater = false,
+
+    Esc = {
+        {Key = 'PM_SCR_MAP', Label = 'Carte'},
+        {Key = 'PM_SCR_GAM', Label = 'Quitter'},
+        {Key = 'PM_SCR_INF', Label = 'Informations'},
+        {Key = 'PM_SCR_STA', Label = 'Statistiques'},
+        {Key = 'PM_SCR_SET', Label = 'Paramètres'},
+        {Key = 'PM_PANE_LEAVE', Label = 'Quitter ~y~Z Framework'},
+        {Key = 'PM_PANE_QUIT', Label = 'Quitter ~y~FiveM~w~'},
+        {Key = 'PM_SCR_GAL', Label = 'Photo'},
+        {Key = 'PM_SCR_RPL', Label = 'Rockstar Editor'},
+        {Key = 'PM_PANE_CFX', Label = '~y~Z Framework~w~'}
+        -- ...
+    }
 }
 
 _ENV.Config = Config

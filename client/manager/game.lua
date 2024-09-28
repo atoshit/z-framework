@@ -13,5 +13,10 @@ Ctz.CreateThread(function()
     end
 
     AddTextEntry('FE_THDR_GTAO', ("%s %s ~w~ | %s | %s/%s"):format(Config.Color.default, Config.ServerName, GetPlayerName(playerId), #GetActivePlayers(), GetConvar('sv_maxclients', '48')))
+
+    for _, item in ipairs(Config.Esc) do
+        AddTextEntry(item.Key, item.Label)
+    end
+
     ReplaceHudColourWithRgba(116, Config.Color.rgba.r, Config.Color.rgba.g, Config.Color.rgba.b, Config.Color.rgba.a)
 end)
