@@ -3,23 +3,25 @@ Z.Event.Register('z-spawn:loadPlayer', function()
     local license = GetPlayerIdentifierByType(source, 'license')
 
     MySQL.fetch('SELECT * FROM `players` WHERE `license` = ?', {license}, function(result)
-        if result[1] then
+        local r = result[1]
+
+        if r then
 
             Z.addPlayer(source, {
-                bank = result[1].bank,
-                inventory = json.decode(result[1].inventory) or {},
-                rank = result[1].rank,
-                firstName = result[1].firstname,
-                lastName = result[1].lastname,
-                age = result[1].age,
-                sex = result[1].sex
+                bank = r.bank,
+                inventory = json.decode(r.inventory) or {},
+                rank = r.rank,
+                firstName = r.firstname,
+                lastName = r.lastname,
+                age = r.age,
+                sex = r.sex
             })
 
-            if result[1].license ~= license or result[1].name ~= GetPlayerName(source) then
+            if r.license ~= license or r.name ~= GetPlayerName(source) then
                 MySQL.execute('UPDATE `players` SET `license` = ?, `name` = ? WHERE `license` = ?', {license, GetPlayerName(source), license})
             end
 
-            local position = json.decode(result[1].position)
+            local position = json.decode(r.position)
 
             if position then
                 Z.Event.TriggerClient('z-spawn:spawnPlayer', source, position.x, position.y, position.z, position.h)
@@ -28,7 +30,7 @@ Z.Event.Register('z-spawn:loadPlayer', function()
             end
         else
             Z.addPlayer(source, {inventory = {}})
-            MySQL.execute('INSERT INTO `players` (`license`, `name`, `position`) VALUES (?, ?)', {license, GetPlayerName(source), json.encode({x = Config.Start.spawn.x, y = Config.Start.spawn.y, z = Config.Start.spawn.z, h = Config.Start.spawn.h})})
+            MySQL.execute('INSERT INTO `players` (`license`, `name`, `position`, `inventory`) VALUES (?, ?, ?, ?)', {license, GetPlayerName(source), json.encode({x = Config.Start.spawn.x, y = Config.Start.spawn.y, z = Config.Start.spawn.z, h = Config.Start.spawn.h}), json.encode{}})
             Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h)
         end
     end)
@@ -36,20 +38,26 @@ end)
 
 AddEventHandler('playerDropped', function()
     local source = source
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(source)))
+    local player = Z.getPlayer(source)
+    local coords = GetEntityCoords(GetPlayerPed(source))
     local h = GetEntityHeading(GetPlayerPed(source))
 
-    MySQL.execute('UPDATE `players` SET `position` = ? WHERE `license` = ?', {json.encode({x = x, y = y, z = z, h = h}), GetPlayerIdentifierByType(source, 'license')})
-    Z.removePlayer(source)
+    MySQL.execute('UPDATE `players` SET `position` = ? WHERE `license` = ?', {json.encode({x = coords.x, y = coords.y, z = coords.z, h = h}), GetPlayerIdentifierByType(source, 'license')})
+
+    local save = player.updateData()
+
+    if save then
+        Z.removePlayer(source)
+    end
 end)
 
 AddEventHandler('onResourceStop', function(resourceName)
     if resourceName == GetCurrentResourceName() then
         for _, playerId in ipairs(GetPlayers()) do
-            local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(playerId)))
+            local coords = GetEntityCoords(GetPlayerPed(playerId))
             local h = GetEntityHeading(GetPlayerPed(playerId))
 
-            MySQL.execute('UPDATE `players` SET `position` = ? WHERE `license` = ?', {json.encode({x = x, y = y, z = z, h = h}), GetPlayerIdentifierByType(playerId, 'license')})
+            MySQL.execute('UPDATE `players` SET `position` = ? WHERE `license` = ?', {json.encode({x = coords.x, y = coords.y, z = coords.z, h = h}), GetPlayerIdentifierByType(playerId, 'license')})
             Z.removePlayer(playerId)
         end
     else

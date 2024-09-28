@@ -41,62 +41,62 @@ function Z.createPlayer(source, data)
         sex = data.sex or "Homme",
     }
 
-    function player:getName()
-        return self.name
+    function player.getName()
+        return player.name
     end
 
-    function player:getIdentifier()
-        return self.identifier
+    function player.getIdentifier()
+        return player.identifier
     end
 
     --- Get Rank of the player
     --- @return string Rank of the player.
-    function player:getRank()
-        return self.rank
+    function player.getRank()
+        return player.rank
     end
 
     --- Set Rank of the player
     --- @param rank string Rank of the player.
     --- @return boolean Return true if the rank is set.
-    function player:setRank(rank)
+    function player.setRank(rank)
         if not rank then
             Z.IO.Error("Argument 'rank' is missing.")
             return false
         end
 
-        self.rank = rank
+        player.rank = rank
         return true
     end
 
     --- Get Bank Money of the player
     --- @return number Bank Money of the player.
-    function player:getBank()
-        return self.bank
+    function player.getBank()
+        return player.bank
     end
 
     --- Set Bank Money of the player
     --- @param bank number Bank Money of the player.
     --- @return boolean Return true if the bank money is set.
-    function player:setBank(bank)
+    function player.setBank(bank)
         if not bank then
             Z.IO.Error("Argument 'bank' is missing.")
             return false
         end
 
-        self.bank = bank
+        player.bank = bank
         return true
     end
 
     --- Add Bank Money of the player
     --- @param bank number Bank Money of the player.
     --- @return boolean Return true if the bank money is added.
-    function player:addBank(bank)
+    function player.addBank(bank)
         if not bank then
             Z.IO.Error("Argument 'bank' is missing.")
             return false
         end
 
-        self.bank = self.bank + bank
+        player.bank = player.bank + bank
         return true
     end
 
@@ -104,19 +104,19 @@ function Z.createPlayer(source, data)
     --- @param itemName string Item name.
     --- @param quantity number Item quantity.
     --- @return boolean Return true if the item is added.
-    function player:addInventoryItem(itemName, quantity)
+    function player.addInventoryItem(itemName, quantity)
         if not itemName or not quantity then
             Z.IO.Error("Argument 'itemName' or 'quantity' is missing.")
             return false
         end
 
-        if not self.inventory[itemName] then
+        if not player.inventory[itemName] then
             Z.IO.Trace("Item has been added to the inventory.")
-            self.inventory[itemName] = quantity
+            player.inventory[itemName] = quantity
             return true
         else
             Z.IO.Trace("Item has been added to the inventory.")
-            self.inventory[itemName] = self.inventory[itemName] + quantity
+            player.inventory[itemName] = player.inventory[itemName] + quantity
             return true
         end
     end
@@ -125,93 +125,110 @@ function Z.createPlayer(source, data)
     --- @param itemName string Item name.
     --- @param quantity number Item quantity.
     --- @return boolean Return true if the item is removed.
-    function player:removeInventoryItem(itemName, quantity)
+    function player.removeInventoryItem(itemName, quantity)
         if not itemName or not quantity then
             Z.IO.Error("Argument 'itemName' or 'quantity' is missing.")
             return false
         end
 
-        if not self.inventory[itemName] then
+        if not player.inventory[itemName] then
             Z.IO.Warn("Item not found in the inventory.")
             return false
         else
-            if self.inventory[itemName] < quantity then
+            if player.inventory[itemName] < quantity then
                 Z.IO.Warn("Item quantity is less than the quantity to remove.")
                 return false
             end
 
             Z.IO.Trace("Item has been removed from the inventory.")
-            self.inventory[itemName] = self.inventory[itemName] - quantity
+            player.inventory[itemName] = player.inventory[itemName] - quantity
             return true
         end
     end
 
-    function player:getFirstName()
-        return self.firstName
+    function player.getInventory()
+        return player.inventory
+    end
+
+    function player.getFirstName()
+        return player.firstName
     end
 
     --- Set First Name of the player
     --- @param firstName string First Name of the player.
     --- @return boolean Return true if the first name is set.
-    function player:setFirstName(firstName)
+    function player.setFirstName(firstName)
         if not firstName then
             Z.IO.Error("Argument 'firstName' is missing.")
             return false
         end
 
-        self.firstName = firstName
+        player.firstName = firstName
         return true
     end
 
-    function player:getLastName()
-        return self.lastName
+    function player.getLastName()
+        return player.lastName
     end
 
     --- Set Last Name of the player
     --- @param lastName string Last Name of the player.
     --- @return boolean Return true if the last name is set.
-    function player:setLastName(lastName)
+    function player.setLastName(lastName)
         if not lastName then
             Z.IO.Error("Argument 'lastName' is missing.")
             return false
         end
 
-        self.lastName = lastName
+        player.lastName = lastName
         return true
     end
 
-    function player:getAge()
-        return self.age
+    function player.getAge()
+        return player.age
     end
 
     --- Set Age of the player
     --- @param age number Age of the player.
     --- @return boolean Return true if the age is set.
-    function player:setAge(age)
+    function player.setAge(age)
         if not age then
             Z.IO.Error("Argument 'age' is missing.")
             return false
         end
 
-        self.age = age
+        player.age = age
+        print(player.age)
         return true
     end
 
-    function player:getSex()
-        return self.sex
+    function player.getSex()
+        return player.sex
     end
 
     --- Set Sex of the player
     --- @param sex string Sex of the player.
     --- @return boolean Return true if sex is set.
-    function player:setSex(sex)
+    function player.setSex(sex)
         if not sex or sex ~= "Homme" or sex ~= "Femme" then
             Z.IO.Error("Argument 'sex' is missing or invalid.")
             return false
         end
 
-        self.sex = sex
+        player.sex = sex
         return true
+    end
+
+    function player.updateData()
+        local rowsChanged = MySQL.Sync.execute("UPDATE players SET name = ?, bank = ?, inventory = ?, rank = ?, firstname = ?, lastname = ?, age = ?, sex = ?", {GetPlayerName(source), player.bank, json.encode(player.inventory), player.rank, player.firstName, player.lastName, player.age, player.sex})
+
+        if rowsChanged > 0 then
+            Z.IO.Trace("Player data updated.")
+            return true
+        else
+            Z.IO.Warn("Player data not updated.")
+            return false
+        end
     end
 
     return player
