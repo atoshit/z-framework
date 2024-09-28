@@ -34,6 +34,9 @@ Z.Event.Register('z-spawn:loadPlayer', function()
             Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h)
         end
     end)
+
+    TriggerClientEvent('z-framework:playerLoaded', -1)
+    TriggerServerEvent('z-framework:playerLoaded')
 end)
 
 AddEventHandler('playerDropped', function()
