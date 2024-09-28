@@ -36,7 +36,7 @@ Z.Event.Register('z-spawn:loadPlayer', function()
     end)
 
     TriggerClientEvent('z-framework:playerLoaded', -1)
-    TriggerServerEvent('z-framework:playerLoaded')
+    TriggerEvent('z-framework:playerLoaded')
 end)
 
 AddEventHandler('playerDropped', function()
@@ -57,11 +57,16 @@ end)
 AddEventHandler('onResourceStop', function(resourceName)
     if resourceName == GetCurrentResourceName() then
         for _, playerId in ipairs(GetPlayers()) do
+            local player = Z.getPlayer(playerId)
             local coords = GetEntityCoords(GetPlayerPed(playerId))
             local h = GetEntityHeading(GetPlayerPed(playerId))
 
             MySQL.execute('UPDATE `players` SET `position` = ? WHERE `license` = ?', {json.encode({x = coords.x, y = coords.y, z = coords.z, h = h}), GetPlayerIdentifierByType(playerId, 'license')})
-            Z.removePlayer(playerId)
+            local save = player.updateData()
+
+            if save then
+                Z.removePlayer(source)
+            end
         end
     else
         return

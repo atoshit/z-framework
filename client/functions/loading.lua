@@ -4,7 +4,7 @@ function Z.Function.loadingHide()
         RemoveLoadingPrompt()
         ShutdownLoadingScreen()
         ShutdownLoadingScreenNui()
-        Z.IO.Trace('(Z.Functions.loadingHide) Loading hidden')
+        Z.Io.Trace('(Z.Functions.loadingHide) Loading hidden')
         return true
     end
 end

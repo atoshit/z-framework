@@ -5,7 +5,17 @@ use_experimental_fxv2_oal 'yes'
 
 author 'Atoshi'
 description 'A simple framework for FiveM'
-version '1.0.0'
+version '1.0.5'
+
+-- zUI
+ui_page "zUI/web/build/index.html"
+
+files {
+    -- zUI
+    "zUI/theme.json",
+    "zUI/web/build/index.html",
+    "zUI/web/build/**/*"
+}
 
 shared_scripts {
     'config.lua',
@@ -24,6 +34,9 @@ server_scripts {
     -- MySQL
     '@oxmysql/lib/MySQL.lua',
 
+    -- zUI
+    "zUI/version.lua",
+
     -- Class
     'server/class/*.lua',
 
@@ -32,6 +45,13 @@ server_scripts {
 }
 
 client_scripts {
+    -- zUI
+    "zUI/init.lua",
+    "zUI/menu.lua",
+    "zUI/methods/*.lua",
+    "zUI/functions/*.lua",
+    "zUI/items/*.lua",
+
     -- Functions
     'client/functions/*.lua',
 
