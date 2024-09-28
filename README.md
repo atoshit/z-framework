@@ -67,6 +67,7 @@ Z Framework est un framework modulaire et flexible pour le développement de ser
    - ```Z.Callback.TriggerWithTimeoutAsync```
    - ```Z.Callback.TriggerAsync```
 ### Events
+   - ```z-framework:playerLoaded```
 
 ## Contribution
 
