@@ -56,17 +56,11 @@ end)
 
 AddEventHandler('onResourceStop', function(resourceName)
     if resourceName == GetCurrentResourceName() then
-        for _, playerId in ipairs(GetPlayers()) do
-            local player = Z.getPlayer(playerId)
+        for _, playerId in pairs(GetPlayers()) do
             local coords = GetEntityCoords(GetPlayerPed(playerId))
             local h = GetEntityHeading(GetPlayerPed(playerId))
 
             MySQL.execute('UPDATE `players` SET `position` = ? WHERE `license` = ?', {json.encode({x = coords.x, y = coords.y, z = coords.z, h = h}), GetPlayerIdentifierByType(playerId, 'license')})
-            local save = player.updateData()
-
-            if save then
-                Z.removePlayer(source)
-            end
         end
     else
         return

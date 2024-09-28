@@ -14,7 +14,11 @@ files {
     -- zUI
     "zUI/theme.json",
     "zUI/web/build/index.html",
-    "zUI/web/build/**/*"
+    "zUI/web/build/**/*",
+
+    -- Water
+    'addons/water.xml',
+    'addons/weapons.meta'
 }
 
 shared_scripts {

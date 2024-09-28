@@ -8,6 +8,10 @@ Ctz.CreateThread(function()
     Z.Function.toggleDispatchService(Config.ToggleDispatchService, playerId)
     Z.Function.toggleScenarios(Config.ToggleScenarios)
 
+    if Config.BigWater == true then
+        local success = LoadWaterFromPath('z-framework', 'water.xml')
+    end
+
     AddTextEntry('FE_THDR_GTAO', ("%s %s ~w~ | %s | %s/%s"):format(Config.Color.default, Config.ServerName, GetPlayerName(playerId), #GetActivePlayers(), GetConvar('sv_maxclients', '48')))
     ReplaceHudColourWithRgba(116, Config.Color.rgba.r, Config.Color.rgba.g, Config.Color.rgba.b, Config.Color.rgba.a)
 end)

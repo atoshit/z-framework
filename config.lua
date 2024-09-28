@@ -27,9 +27,10 @@ local Config <const> = {
     TogglePvp = true,
     ToggleNpcDrops = false,
     ToggleNpcHealthRegeneration = false,
-    ToggleDefaultWantedLevel = false,
-    ToggleDispatchService = false,
-    ToggleScenarios = false
+    ToggleDefaultWantedLevel = true,
+    ToggleDispatchService = true,
+    ToggleScenarios = false,
+    BigWater = false
 }
 
 _ENV.Config = Config
