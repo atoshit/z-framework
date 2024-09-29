@@ -17,6 +17,8 @@ local function spawnPlayer(x, y, z, h)
         SetPedDefaultComponentVariation(PlayerPedId())
         FreezeEntityPosition(PlayerPedId(), false)
         Z.Io.Trace('Player spawned successfully at coords: ' .. x .. ', ' .. y .. ', ' .. z)
+        TriggerEvent('z-framework:playerSpawned', x, y, z, h)
+        TriggerServerEvent('z-framework:playerSpawned', x, y, z, h)
     else
         Z.Io.Warn('Player failed to spawn at coords: ' .. x .. ', ' .. y .. ', ' .. z)
     end

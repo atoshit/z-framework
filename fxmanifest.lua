@@ -41,6 +41,9 @@ server_scripts {
     -- zUI
     "zUI/version.lua",
 
+    -- Functions
+    'server/functions/*.lua',
+
     -- Class
     'server/class/*.lua',
 

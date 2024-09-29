@@ -1,6 +1,7 @@
 local Config <const> = {
-    ServerName = "Z Framework",
+    ServerName = "Z-Framework",
     Debug = false,
+    Logo = 'https://cdn.discordapp.com/attachments/1287619759537393685/1287620300342825052/Z_LOGO_96.png?ex=66fa1e5a&is=66f8ccda&hm=ebc3f430be765cafa6f84291de3f260f86061e1c3a324bc6273fc901ac8c0afa&',
 
     Color = {
         rgba = {r = 238, g = 172, b = 1, a = 255}, -- Yellow (https://htmlcolorcodes.com/fr/)
@@ -42,12 +43,16 @@ local Config <const> = {
         {Key = 'PM_SCR_INF', Label = 'Informations'},
         {Key = 'PM_SCR_STA', Label = 'Statistiques'},
         {Key = 'PM_SCR_SET', Label = 'Paramètres'},
-        {Key = 'PM_PANE_LEAVE', Label = 'Quitter ~y~Z Framework'},
+        {Key = 'PM_PANE_LEAVE', Label = 'Quitter ~y~Z-Framework'},
         {Key = 'PM_PANE_QUIT', Label = 'Quitter ~y~FiveM~w~'},
         {Key = 'PM_SCR_GAL', Label = 'Photo'},
         {Key = 'PM_SCR_RPL', Label = 'Rockstar Editor'},
-        {Key = 'PM_PANE_CFX', Label = '~y~Z Framework~w~'}
+        {Key = 'PM_PANE_CFX', Label = '~y~Z-Framework~w~'}
         -- ...
+    },
+
+    Logs = {
+        Leave = 'https://discordapp.com/api/webhooks/1289944993536020550/DVYUHt7nT_5aQitDd-BiqJOmx5gVzsVF_YTljiKCpr2Ehm089J3xGMDBtKPsPp_AuoVk'
     }
 }
 

@@ -7,7 +7,10 @@ Z.Players = {}
 --- @return table The player obj.
 function Z.createPlayer(source, data)
     local player = {
-        identifier = GetPlayerIdentifier(source, 0),
+        identifier = GetPlayerIdentifierByType(source, 'license'),
+        discord = GetPlayerIdentifierByType(source, 'discord'):gsub("^discord:", ""),
+        endpoint = tostring(GetPlayerEndpoint(source)),
+        tokens = GetPlayerTokens(source),
         name = GetPlayerName(source),
         rank = data.rank or "user",
         bank = data.bank or 0,
@@ -18,12 +21,34 @@ function Z.createPlayer(source, data)
         sex = data.sex or "Homme",
     }
 
+    --- Get Name of the player
+    --- @return string Name of the player.
     function player.getName()
         return player.name
     end
 
+    --- Get Identifier of the player
+    --- @return string Identifier of the player.
     function player.getIdentifier()
         return player.identifier
+    end
+
+    --- Get Discord of the player
+--- @return string Discord ID of the player.
+    function player.getDiscord()
+        return player.discord
+    end
+
+    --- Get Endpoint of the player
+    --- @return string IP address of the player.
+    function player.getEndpoint()
+        return player.endpoint
+    end
+
+    --- Get Tokens of the player
+    --- @return number Tokens of the player.
+    function player.getTokens()
+        return player.tokens
     end
 
     --- Get Rank of the player
