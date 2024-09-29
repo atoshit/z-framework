@@ -24,18 +24,20 @@ Z.Event.Register('z-spawn:loadPlayer', function()
             local position = json.decode(r.position)
 
             if position then
-                Z.Event.TriggerClient('z-spawn:spawnPlayer', source, position.x, position.y, position.z, position.h)
+                Z.Event.TriggerClient('z-spawn:spawnPlayer', source, position.x, position.y, position.z, position.h, false)
             else
-                Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h)
+                Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h, false)
             end
+            firstConnection = false
         else
             Z.addPlayer(source, {inventory = {}})
             MySQL.execute('INSERT INTO `players` (`license`, `tokens`, `endpoint`, `discord`, `name`, `position`, `inventory`) VALUES (?, ?, ?, ?, ?, ?, ?)', {license, json.encode(GetPlayerTokens(source)), tostring(GetPlayerEndpoint(source)), GetPlayerIdentifierByType(source, 'discord'):gsub("^discord:", ""), GetPlayerName(source), json.encode({x = Config.Start.spawn.x, y = Config.Start.spawn.y, z = Config.Start.spawn.z, h = Config.Start.spawn.h}), json.encode{}})
-            Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h)
+            Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h, true)
+            firstConnection = true
         end
     end)
 
-    TriggerClientEvent('z-framework:playerLoaded', -1)
+    TriggerClientEvent('z-framework:playerLoaded', -1, firstConnection)
     TriggerEvent('z-framework:playerLoaded')
 end)
 
