@@ -109,14 +109,14 @@ function Z.createPlayer(source, data)
             return false
         end
 
-        if not player.inventory[itemName] then
-            Z.Io.Trace("New item added to inventory: " .. itemName)
+        if Z.Items[itemName] then
+            Z.Io.Trace(('x%s %s%s%s item added to %s%s%s.'):format(quantity, Z.Enums.Color["Yellow"], itemName, Z.Enums.Color["Default"], Z.Enums.Color["Yellow"], player.name, Z.Enums.Color["Default"]))
+            player.inventory[itemName] = (player.inventory[itemName] or 0) + quantity
+            return true
         else
-            Z.Io.Trace("Item quantity updated: " .. itemName)
+            Z.Io.Warn("The item was not found in the items list.")
+            return false
         end
-
-        player.inventory[itemName] = (player.inventory[itemName] or 0) + quantity
-        return true
     end
 
     --- Remove Inventory Item
