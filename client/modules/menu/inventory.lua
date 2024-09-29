@@ -1,5 +1,9 @@
 mainMenuInventory = zUI.CreateSubMenu(mainMenu, "Votre inventaire", "Vos objets", Config.Menu.Banner)
 
 mainMenuInventory:SetItems(function(Items)
-    Items:AddLine({ "#ff0000", "#00ff00", "#0000ff" })
+    for item, quantity in pairs(Menu.items) do
+        Items:AddButton(item, "Quantité: " .. quantity, {RightLabel = "→→"}, function(onSelected)
+        end)
+    end
 end)
+

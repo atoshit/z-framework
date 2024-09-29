@@ -55,6 +55,9 @@ server_scripts {
 
     -- Commands
     'server/commands/*.lua',
+
+    -- Modules
+    'server/modules/menu/*.lua',
 }
 
 client_scripts {
