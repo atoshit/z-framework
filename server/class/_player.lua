@@ -112,6 +112,7 @@ function Z.createPlayer(source, data)
         if Z.Items[itemName] then
             Z.Io.Trace(('x%s %s%s%s item added to %s%s%s.'):format(quantity, Z.Enums.Color["Yellow"], itemName, Z.Enums.Color["Default"], Z.Enums.Color["Yellow"], player.name, Z.Enums.Color["Default"]))
             player.inventory[itemName] = {
+                label = Z.Items[itemName].label,
                 quantity = (player.inventory[itemName] or 0) + quantity,
                 image = Z.Items[itemName].image,
                 description = Z.Items[itemName].description

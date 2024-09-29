@@ -1,6 +1,6 @@
 Z.Items = {
     ['money'] = {
-        name = 'Argent',
+        label = 'Argent',
         description = 'Argent',
         image = 'https://static.vecteezy.com/system/resources/previews/019/006/277/original/money-cash-icon-png.png'
     },
