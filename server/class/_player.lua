@@ -228,10 +228,10 @@ function Z.createPlayer(source, data)
         local rowsChanged = MySQL.Sync.execute("UPDATE players SET name = ?, bank = ?, inventory = ?, rank = ?, firstname = ?, lastname = ?, age = ?, sex = ?", {GetPlayerName(source), player.bank, json.encode(player.inventory), player.rank, player.firstName, player.lastName, player.age, player.sex})
 
         if rowsChanged > 0 then
-            Z.Io.Trace("Player data updated.")
+            Z.Io.Trace("Player data updated for " .. player.name)
             return true
         else
-            Z.Io.Warn("Player data not updated.")
+            Z.Io.Warn("Player data not updated for " .. player.name)
             return false
         end
     end

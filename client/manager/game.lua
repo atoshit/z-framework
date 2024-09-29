@@ -12,7 +12,7 @@ Ctz.CreateThread(function()
         local success = LoadWaterFromPath('z-framework', 'water.xml')
     end
 
-    AddTextEntry('FE_THDR_GTAO', ("%s %s ~w~ | %s | %s/%s"):format(Config.Color.default, Config.ServerName, GetPlayerName(playerId), #GetActivePlayers(), GetConvar('sv_maxclients', '48')))
+    AddTextEntry('FE_THDR_GTAO', ("%s%s ~w~ | %s | %s/%s"):format(Config.Color.default, Config.ServerName, GetPlayerName(playerId), #GetActivePlayers(), GetConvar('sv_maxclients', '48')))
 
     for _, item in ipairs(Config.Esc) do
         AddTextEntry(item.Key, item.Label)

@@ -67,6 +67,9 @@ client_scripts {
 
     -- Class
     'client/class/*.lua',
+
+    -- Modules
+    'client/modules/menu/*.lua',
 }
 
 exports {

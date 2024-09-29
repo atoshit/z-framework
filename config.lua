@@ -16,6 +16,10 @@ local Config <const> = {
         weapon = nil, -- table or nil
     },
 
+    Menu = {
+        Banner = "https://cdn.discordapp.com/attachments/1287155646860628001/1289532687903883324/Capture.PNG?ex=66f92a67&is=66f7d8e7&hm=c8fea5beb736812c82f428845dfa9381007e2168b8a6f62f2bd2a25899f409dd&",
+    },
+
     DiscordPresence = {
         appId = '1288422064188952639',
         largeImage = 'logo',
