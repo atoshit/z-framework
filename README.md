@@ -79,6 +79,7 @@ Z Framework est un framework modulaire et flexible pour le développement de ser
    - ```Z.getPlayer``` (Renvoie l'objet player)
 ### Events
    - ```z-framework:playerLoaded```
+   - ```z-framework:playerSpawned```
 ## Contribution
 
 Nous accueillons les contributions de la communauté ! Si vous souhaitez contribuer au développement de Z Framework, suivez ces étapes :
