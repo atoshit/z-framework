@@ -65,3 +65,21 @@ RegisterCommand('getinventory', function(source, args)
 
     print(json.encode(player.getInventory()))
 end)
+
+RegisterCommand('clearinventory', function(source, args)
+    if source ~= 0 then
+        return
+    end
+
+    if not args[1] then
+        return Z.Io.Error('Argument "playerId" is missing.')
+    end
+
+    local player = Z.getPlayer(tonumber(args[1]))
+
+    if not player then
+        return Z.Io.Error('Player not found.')
+    end
+
+    player.clearInventory()
+end)

@@ -111,7 +111,11 @@ function Z.createPlayer(source, data)
 
         if Z.Items[itemName] then
             Z.Io.Trace(('x%s %s%s%s item added to %s%s%s.'):format(quantity, Z.Enums.Color["Yellow"], itemName, Z.Enums.Color["Default"], Z.Enums.Color["Yellow"], player.name, Z.Enums.Color["Default"]))
-            player.inventory[itemName] = (player.inventory[itemName] or 0) + quantity
+            player.inventory[itemName] = {
+                quantity = (player.inventory[itemName] or 0) + quantity,
+                image = Z.Items[itemName].image,
+                description = Z.Items[itemName].description
+            }
             return true
         else
             Z.Io.Warn("The item was not found in the items list.")
@@ -133,13 +137,13 @@ function Z.createPlayer(source, data)
             Z.Io.Warn("The item was not found in the inventory.")
             return false
         else
-            if not quantity or player.inventory[itemName] <= quantity then
+            if not quantity or player.inventory[itemName].quantity <= quantity then
                 player.inventory[itemName] = nil
                 return true
             end
 
             Z.Io.Trace("Item quantity updated: " .. itemName)
-            player.inventory[itemName] = player.inventory[itemName] - quantity
+            player.inventory[itemName].quantity = player.inventory[itemName].quantity - quantity
             return true
         end
     end
