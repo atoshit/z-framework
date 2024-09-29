@@ -7,6 +7,6 @@ Z.Items = {
     ['water'] = {
         label = 'Eau',
         description = 'Eau',
-        image = 'https://cdn.discordapp.com/attachments/1286151864668258417/1289988282947473478/depositphotos_219209698-stock-illustration-plastic-water-bottle-removebg-preview.png?ex=66fad2b5&is=66f98135&hm=cb29b397a24ad55cdf74cd36e74693ff5ec55711c5d58b1c68202dea17b3e7c3&'
+        image = 'https://cdn.discordapp.com/attachments/1286151864668258417/1289990765161877565/pngtree-water-bottle-icon-png-image_1642345-removebg-preview.png?ex=66fad505&is=66f98385&hm=8ab52303dbd1cb2e6787748c50e53e2f66c79669d58388d6dff0f5733ece1eec&'
     }
 }
