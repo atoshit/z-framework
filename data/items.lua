@@ -7,6 +7,6 @@ Z.Items = {
     ['water'] = {
         label = 'Eau',
         description = 'Eau',
-        image = 'https://i.pinimg.com/originals/cf/1d/ef/cf1defa1bd49bcc621b7f5942c2403b7.png'
+        image = 'https://cdn.discordapp.com/attachments/1286151864668258417/1289988282947473478/depositphotos_219209698-stock-illustration-plastic-water-bottle-removebg-preview.png?ex=66fad2b5&is=66f98135&hm=cb29b397a24ad55cdf74cd36e74693ff5ec55711c5d58b1c68202dea17b3e7c3&'
     }
 }
