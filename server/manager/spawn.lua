@@ -1,6 +1,7 @@
 Z.Event.Register('z-spawn:loadPlayer', function()
     local source = source
     local license = GetPlayerIdentifierByType(source, 'license')
+    isNewPlayer = false
 
     MySQL.fetch('SELECT * FROM `players` WHERE `license` = ?', {license}, function(result)
         local r = result[1]
@@ -24,20 +25,21 @@ Z.Event.Register('z-spawn:loadPlayer', function()
             local position = json.decode(r.position)
 
             if position then
-                Z.Event.TriggerClient('z-spawn:spawnPlayer', source, position.x, position.y, position.z, position.h, false)
+                Z.Event.TriggerClient('z-spawn:spawnPlayer', source, position.x, position.y, position.z, position.h, isNewPlayer)
             else
-                Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h, false)
+                Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h, isNewPlayer)
             end
             firstConnection = false
         else
+            isNewPlayer = true
             Z.addPlayer(source, {inventory = {}})
             MySQL.execute('INSERT INTO `players` (`license`, `tokens`, `endpoint`, `discord`, `name`, `position`, `inventory`) VALUES (?, ?, ?, ?, ?, ?, ?)', {license, json.encode(GetPlayerTokens(source)), tostring(GetPlayerEndpoint(source)), GetPlayerIdentifierByType(source, 'discord'):gsub("^discord:", ""), GetPlayerName(source), json.encode({x = Config.Start.spawn.x, y = Config.Start.spawn.y, z = Config.Start.spawn.z, h = Config.Start.spawn.h}), json.encode{}})
-            Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h, true)
+            Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h, isNewPlayer)
             firstConnection = true
         end
     end)
 
-    TriggerClientEvent('z-framework:playerLoaded', -1, firstConnection)
+    TriggerClientEvent('z-framework:playerLoaded', -1, isNewPlayer)
     TriggerEvent('z-framework:playerLoaded')
 end)
 
