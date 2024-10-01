@@ -53,7 +53,28 @@ local Config <const> = {
 
     Logs = {
         Leave = 'https://discordapp.com/api/webhooks/1289944993536020550/DVYUHt7nT_5aQitDd-BiqJOmx5gVzsVF_YTljiKCpr2Ehm089J3xGMDBtKPsPp_AuoVk'
-    }
+    },
+
+    -- Ranks
+    Ranks = {
+        {name = 'user', label = 'Utilisateur', color = '~w~'},
+        {name = 'mod', label = 'Administrateur', color = '~b~'},
+        {name = 'admin', label = 'Administrateur', color = '~p~'},
+        {name = 'superadmin', label = 'Administrateur', color = '~y~'},
+        {name = 'owner', label = 'Administrateur', color = '~r~'},
+        {name = 'dev', label = 'Administrateur', color = '~l~'},
+    },
+
+    -- Permissions
+    Permissions = {
+        ['openAdminMenu'] = {'admin', 'superadmin', 'owner', 'dev'},
+        ['noclip'] = {'admin', 'superadmin', 'owner', 'dev'},
+        ['giveBankMoney'] = {'admin', 'superadmin', 'owner', 'dev'},
+        ['giveItem'] = {'admin', 'superadmin', 'owner', 'dev'},
+        ['giveWeapon'] = {'admin', 'superadmin', 'owner', 'dev'},
+        ['giveWeaponComponent'] = {'admin', 'superadmin', 'owner', 'dev'},
+        ['spawnVehicle'] = {'admin', 'superadmin', 'owner', 'dev'}
+    },
 }
 
 _ENV.Config = Config

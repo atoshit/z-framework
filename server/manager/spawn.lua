@@ -11,6 +11,7 @@ Z.Event.Register('z-spawn:loadPlayer', function()
             Z.addPlayer(source, {
                 bank = r.bank,
                 inventory = json.decode(r.inventory) or {},
+                weapons = json.decode(r.weapons) or {},
                 rank = r.rank,
                 firstName = r.firstname,
                 lastName = r.lastname,
@@ -29,11 +30,15 @@ Z.Event.Register('z-spawn:loadPlayer', function()
             else
                 Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h, isNewPlayer)
             end
+
+            Ctz.Wait(1000)
+
+            Z.getPlayer(source).restoreWeapons()
             firstConnection = false
         else
             isNewPlayer = true
-            Z.addPlayer(source, {inventory = {}})
-            MySQL.execute('INSERT INTO `players` (`license`, `tokens`, `endpoint`, `discord`, `name`, `position`, `inventory`) VALUES (?, ?, ?, ?, ?, ?, ?)', {license, json.encode(GetPlayerTokens(source)), tostring(GetPlayerEndpoint(source)), GetPlayerIdentifierByType(source, 'discord'):gsub("^discord:", ""), GetPlayerName(source), json.encode({x = Config.Start.spawn.x, y = Config.Start.spawn.y, z = Config.Start.spawn.z, h = Config.Start.spawn.h}), json.encode{}})
+            Z.addPlayer(source, {inventory = {}, weapons = {}})
+            MySQL.execute('INSERT INTO `players` (`license`, `tokens`, `endpoint`, `discord`, `name`, `position`, `inventory`, `weapons`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', {license, json.encode(GetPlayerTokens(source)), tostring(GetPlayerEndpoint(source)), GetPlayerIdentifierByType(source, 'discord'):gsub("^discord:", ""), GetPlayerName(source), json.encode({x = Config.Start.spawn.x, y = Config.Start.spawn.y, z = Config.Start.spawn.z, h = Config.Start.spawn.h}), json.encode({}), json.encode({})})
             Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h, isNewPlayer)
             firstConnection = true
         end

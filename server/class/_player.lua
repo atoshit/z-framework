@@ -15,11 +15,14 @@ function Z.createPlayer(source, data)
         rank = data.rank or "user",
         bank = data.bank or 0,
         inventory = data.inventory or {},
+        weapons = data.weapons or {},
         firstName = data.firstName or "Unknown",
         lastName = data.lastName or "Unknown",
         age = data.age or 21,
         sex = data.sex or "Homme",
     }
+
+    print(json.encode(player.weapons))
 
     --- Get Name of the player
     --- @return string Name of the player.
@@ -99,81 +102,6 @@ function Z.createPlayer(source, data)
         return true
     end
 
-    --- Add Inventory Item
-    --- @param itemName string Item name.
-    --- @param quantity number Item quantity.
-    --- @return boolean Return true if the item is added.
-    function player.addInventoryItem(itemName, quantity)
-        if not itemName or not quantity then
-            Z.Io.Error("The 'itemName' or 'quantity' argument is missing.")
-            return false
-        end
-
-        if Z.Items[itemName] then
-            Z.Io.Trace(('x%s %s%s%s item added to %s%s%s.'):format(quantity, Z.Enums.Color["Yellow"], itemName, Z.Enums.Color["Default"], Z.Enums.Color["Yellow"], player.name, Z.Enums.Color["Default"]))
-            player.inventory[itemName] = {
-                label = Z.Items[itemName].label,
-                quantity = (player.inventory[itemName] or 0) + quantity,
-                image = Z.Items[itemName].image,
-                description = Z.Items[itemName].description
-            }
-            return true
-        else
-            Z.Io.Warn("The item was not found in the items list.")
-            return false
-        end
-    end
-
-    --- Remove Inventory Item
-    --- @param itemName string Item name.
-    --- @param quantity number Item quantity (optional).
-    --- @return boolean Return true if the item is removed.
-    function player.removeInventoryItem(itemName, quantity)
-        if not itemName then
-            Z.Io.Error("The 'itemName' argument is missing.")
-            return false
-        end
-
-        if not player.inventory[itemName] then
-            Z.Io.Warn("The item was not found in the inventory.")
-            return false
-        else
-            if not quantity or player.inventory[itemName].quantity <= quantity then
-                player.inventory[itemName] = nil
-                return true
-            end
-
-            Z.Io.Trace("Item quantity updated: " .. itemName)
-            player.inventory[itemName].quantity = player.inventory[itemName].quantity - quantity
-            return true
-        end
-    end
-
-    function player.getInventory()
-        return player.inventory
-    end
-
-    --- Check if the player has the item
-    --- @param itemName string Item name.
-    --- @param quantity number Item quantity (optional).
-    --- @return boolean Return true if the player has the item.
-    function player.hasItem(itemName, quantity)
-        if not itemName then
-            Z.Io.Error("The 'itemName' argument is missing.")
-            return false
-        end
-
-        if quantity then
-            return player.inventory[itemName] and player.inventory[itemName] >= quantity
-        else
-            return player.inventory[itemName] ~= nil
-        end
-    end
-
-    function player.clearInventory()
-        player.inventory = {}
-    end
-
     --- Get First Name of the player
     --- @return string Return FirstName of the player.
     function player.getFirstName()
@@ -194,6 +122,42 @@ function Z.createPlayer(source, data)
 
     function player.getLastName()
         return player.lastName
+    end
+
+    --- Get Weapons of the player
+    --- @return table Return Weapons of the player.
+    function player.getWeapons()
+        return player.weapons
+    end
+
+    --- Add Weapons of the player
+    --- @param weaponName string Name of the weapon.
+    --- @param ammoCount number Ammo count of the weapon.
+    --- @return boolean Return true if the weapon is added.
+    function player.addWeapon(weaponName, ammoCount)
+        if not weaponName or not ammoCount then
+            Z.Io.Error('The weaponName or ammoCount is missing.')
+            return false
+        end
+
+        player.weapons[weaponName] = ammoCount
+        GiveWeaponToPed(GetPlayerPed(source), GetHashKey(weaponName), tonumber(ammoCount), true, false)
+        return true
+    end
+
+    --- Restore Weapons of the player
+    --- @return boolean Return true if the weapons are restored.
+    function player.restoreWeapons()
+        if not next(player.weapons) then
+            return 
+        end
+
+        print('Restore Weapons')
+
+        for weaponName, ammoCount in pairs(player.weapons) do
+            player.addWeapon(weaponName, ammoCount)
+        end
+        return true
     end
 
     --- Set Last Name of the player
@@ -247,10 +211,11 @@ function Z.createPlayer(source, data)
     --- Update Player Data in the Database
     --- @return boolean Return true if data is updated successfully.
     function player.updateData()
-        local rowsChanged = MySQL.Sync.execute("UPDATE players SET name = ?, bank = ?, inventory = ?, rank = ?, firstname = ?, lastname = ?, age = ?, sex = ?", {
+        local rowsChanged = MySQL.Sync.execute("UPDATE players SET name = ?, bank = ?, inventory = ?, weapons = ?, rank = ?, firstname = ?, lastname = ?, age = ?, sex = ?", {
             GetPlayerName(source),
             player.bank,
             json.encode(player.inventory),
+            json.encode(player.weapons),
             player.rank,
             player.firstName,
             player.lastName,
