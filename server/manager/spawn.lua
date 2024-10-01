@@ -67,9 +67,7 @@ AddEventHandler('playerDropped', function(reason)
         Z.removePlayer(source)
     end
 
-    local message = ('Prénom: %s \n Nom: %s \n Rank: %s \n Position: %s \n License: %s \n Discord: <@%s> \n IP: %s \n Raison: %s')
-        :format(player.getFirstName(), player.getLastName(), player.getRank(), position, 
-                player.getIdentifier(), player.getDiscord(), player.getEndpoint(), reason)
+    local message = ('Prénom: %s \n Nom: %s \n Rank: %s \n Position: %s \n License: %s \n Discord: <@%s> \n IP: %s \n Raison: %s'):format(player.getFirstName(), player.getLastName(), player.getRank(), position, player.getIdentifier(), player.getDiscord(), player.getEndpoint(), reason)
     Z.Function.sendDiscordLog(Config.Logs.Leave, 16711680, 'Déconnexion', message, 'Z-Framework')
 end)
 

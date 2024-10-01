@@ -7,6 +7,7 @@ Z.Players = {}
 --- @return table The player obj.
 function Z.createPlayer(source, data)
     local player = {
+        source = source,
         identifier = GetPlayerIdentifierByType(source, 'license'),
         discord = GetPlayerIdentifierByType(source, 'discord'):gsub("^discord:", ""),
         endpoint = tostring(GetPlayerEndpoint(source)),
@@ -22,7 +23,7 @@ function Z.createPlayer(source, data)
         sex = data.sex or "Homme",
     }
 
-    print(json.encode(player.weapons))
+    Z.Io.Trace("Player created: " .. player.name)
 
     --- Get Name of the player
     --- @return string Name of the player.
@@ -49,7 +50,7 @@ function Z.createPlayer(source, data)
     end
 
     --- Get Tokens of the player
-    --- @return number Tokens of the player.
+    --- @return table Tokens of the player.
     function player.getTokens()
         return player.tokens
     end
@@ -64,8 +65,8 @@ function Z.createPlayer(source, data)
     --- @param rank string Rank of the player.
     --- @return boolean Return true if the rank is set.
     function player.setRank(rank)
-        if not rank then
-            Z.Io.Error("The 'rank' argument is missing.")
+        if type(rank) ~= "string" then
+            Z.Io.Error("Invalid 'rank' argument. Expected string.")
             return false
         end
         player.rank = rank
@@ -82,8 +83,8 @@ function Z.createPlayer(source, data)
     --- @param bank number Bank Money of the player.
     --- @return boolean Return true if the bank money is set.
     function player.setBank(bank)
-        if not bank then
-            Z.Io.Error("The 'bank' argument is missing.")
+        if type(bank) ~= "number" then
+            Z.Io.Error("Invalid 'bank' argument. Expected number.")
             return false
         end
         player.bank = bank
@@ -94,8 +95,8 @@ function Z.createPlayer(source, data)
     --- @param amount number Amount to add to the bank.
     --- @return boolean Return true if the bank money is added.
     function player.addBank(amount)
-        if not amount then
-            Z.Io.Error("The 'amount' argument is missing.")
+        if type(amount) ~= "number" then
+            Z.Io.Error("Invalid 'amount' argument. Expected number.")
             return false
         end
         player.bank = player.bank + amount
@@ -112,16 +113,30 @@ function Z.createPlayer(source, data)
     --- @param firstName string First Name of the player.
     --- @return boolean Return true if the first name is set.
     function player.setFirstName(firstName)
-        if not firstName then
-            Z.Io.Error("The 'firstName' argument is missing.")
+        if type(firstName) ~= "string" then
+            Z.Io.Error("Invalid 'firstName' argument. Expected string.")
             return false
         end
         player.firstName = firstName
         return true
     end
 
+    --- Get Last Name of the player
+    --- @return string Return LastName of the player.
     function player.getLastName()
         return player.lastName
+    end
+
+    --- Set Last Name of the player
+    --- @param lastName string Last Name of the player.
+    --- @return boolean Return true if the last name is set.
+    function player.setLastName(lastName)
+        if type(lastName) ~= "string" then
+            Z.Io.Error("Invalid 'lastName' argument. Expected string.")
+            return false
+        end
+        player.lastName = lastName
+        return true
     end
 
     --- Get Weapons of the player
@@ -135,13 +150,13 @@ function Z.createPlayer(source, data)
     --- @param ammoCount number Ammo count of the weapon.
     --- @return boolean Return true if the weapon is added.
     function player.addWeapon(weaponName, ammoCount)
-        if not weaponName or not ammoCount then
-            Z.Io.Error('The weaponName or ammoCount is missing.')
+        if type(weaponName) ~= "string" or type(ammoCount) ~= "number" then
+            Z.Io.Error("Invalid arguments for addWeapon. Expected string and number.")
             return false
         end
 
         player.weapons[weaponName] = ammoCount
-        GiveWeaponToPed(GetPlayerPed(source), GetHashKey(weaponName), tonumber(ammoCount), true, false)
+        GiveWeaponToPed(GetPlayerPed(source), GetHashKey(weaponName), ammoCount, true, false)
         return true
     end
 
@@ -149,26 +164,14 @@ function Z.createPlayer(source, data)
     --- @return boolean Return true if the weapons are restored.
     function player.restoreWeapons()
         if not next(player.weapons) then
-            return 
+            return false
         end
 
-        print('Restore Weapons')
+        Z.Io.Trace("Restoring weapons for player: " .. player.name)
 
         for weaponName, ammoCount in pairs(player.weapons) do
             player.addWeapon(weaponName, ammoCount)
         end
-        return true
-    end
-
-    --- Set Last Name of the player
-    --- @param lastName string Last Name of the player.
-    --- @return boolean Return true if the last name is set.
-    function player.setLastName(lastName)
-        if not lastName then
-            Z.Io.Error("The 'lastName' argument is missing.")
-            return false
-        end
-        player.lastName = lastName
         return true
     end
 
@@ -182,8 +185,8 @@ function Z.createPlayer(source, data)
     --- @param age number Age of the player.
     --- @return boolean Return true if the age is set.
     function player.setAge(age)
-        if not age then
-            Z.Io.Error("The 'age' argument is missing.")
+        if type(age) ~= "number" or age < 0 then
+            Z.Io.Error("Invalid 'age' argument. Expected positive number.")
             return false
         end
         player.age = age
@@ -200,8 +203,8 @@ function Z.createPlayer(source, data)
     --- @param sex string Sex of the player.
     --- @return boolean Return true if sex is set.
     function player.setSex(sex)
-        if not sex or (sex ~= "Homme" and sex ~= "Femme") then
-            Z.Io.Error("The 'sex' argument is missing or invalid.")
+        if sex ~= "Homme" and sex ~= "Femme" then
+            Z.Io.Error("Invalid 'sex' argument. Expected 'Homme' or 'Femme'.")
             return false
         end
         player.sex = sex
@@ -211,23 +214,26 @@ function Z.createPlayer(source, data)
     --- Update Player Data in the Database
     --- @return boolean Return true if data is updated successfully.
     function player.updateData()
-        local rowsChanged = MySQL.Sync.execute("UPDATE players SET name = ?, bank = ?, inventory = ?, weapons = ?, rank = ?, firstname = ?, lastname = ?, age = ?, sex = ?", {
-            GetPlayerName(source),
-            player.bank,
-            json.encode(player.inventory),
-            json.encode(player.weapons),
-            player.rank,
-            player.firstName,
-            player.lastName,
-            player.age,
-            player.sex
-        })
+        local success, result = pcall(function()
+            return MySQL.Sync.execute("UPDATE players SET name = ?, bank = ?, inventory = ?, weapons = ?, rank = ?, firstname = ?, lastname = ?, age = ?, sex = ? WHERE identifier = ?", {
+                player.name,
+                player.bank,
+                json.encode(player.inventory),
+                json.encode(player.weapons),
+                player.rank,
+                player.firstName,
+                player.lastName,
+                player.age,
+                player.sex,
+                player.identifier
+            })
+        end)
 
-        if rowsChanged > 0 then
+        if success and result > 0 then
             Z.Io.Trace("Player data updated for " .. player.name)
             return true
         else
-            Z.Io.Warn("Player data not updated for " .. player.name)
+            Z.Io.Warn("Player data not updated for " .. player.name .. ". Error: " .. tostring(result))
             return false
         end
     end
@@ -260,5 +266,10 @@ end
 --- Remove Player
 --- @param source number The player's server ID.
 function Z.removePlayer(source)
-    Z.Players[source] = nil
+    if Z.Players[source] then
+        Z.Players[source] = nil
+        Z.Io.Trace("Player removed: " .. tostring(source))
+    else
+        Z.Io.Warn("Attempted to remove non-existent player: " .. tostring(source))
+    end
 end
