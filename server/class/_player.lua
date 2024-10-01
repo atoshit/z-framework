@@ -215,7 +215,7 @@ function Z.createPlayer(source, data)
     --- @return boolean Return true if data is updated successfully.
     function player.updateData()
         local success, result = pcall(function()
-            return MySQL.Sync.execute("UPDATE players SET name = ?, bank = ?, inventory = ?, weapons = ?, rank = ?, firstname = ?, lastname = ?, age = ?, sex = ? WHERE identifier = ?", {
+            return MySQL.Sync.execute("UPDATE players SET name = ?, bank = ?, inventory = ?, weapons = ?, rank = ?, firstname = ?, lastname = ?, age = ?, sex = ? WHERE license = ?", {
                 player.name,
                 player.bank,
                 json.encode(player.inventory),
