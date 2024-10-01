@@ -1,80 +1,88 @@
 Z.Event.Register('z-spawn:loadPlayer', function()
     local source = source
     local license = GetPlayerIdentifierByType(source, 'license')
-    isNewPlayer = false
+    local isNewPlayer = false
 
-    MySQL.fetch('SELECT * FROM `players` WHERE `license` = ?', {license}, function(result)
-        local r = result[1]
+    MySQL.single('SELECT * FROM `players` WHERE `license` = ?', {license}, function(result)
+        if result then
+            local playerData = {
+                bank = result.bank,
+                inventory = json.decode(result.inventory) or {},
+                weapons = json.decode(result.weapons) or {},
+                rank = result.rank,
+                firstName = result.firstname,
+                lastName = result.lastname,
+                age = result.age,
+                sex = result.sex
+            }
+            Z.addPlayer(source, playerData)
 
-        if r then
+            local playerInfo = {
+                license = license,
+                name = GetPlayerName(source),
+                tokens = json.encode(GetPlayerTokens(source)),
+                endpoint = tostring(GetPlayerEndpoint(source)),
+                discord = GetPlayerIdentifierByType(source, 'discord'):gsub("^discord:", "")
+            }
 
-            Z.addPlayer(source, {
-                bank = r.bank,
-                inventory = json.decode(r.inventory) or {},
-                weapons = json.decode(r.weapons) or {},
-                rank = r.rank,
-                firstName = r.firstname,
-                lastName = r.lastname,
-                age = r.age,
-                sex = r.sex
-            })
-
-            if r.license ~= license or r.name ~= GetPlayerName(source) or r.endpoint ~= tostring(GetPlayerEndpoint(source)) or r.discord ~= GetPlayerIdentifierByType(source, 'discord'):gsub("^discord:", "") then
-                MySQL.execute('UPDATE `players` SET `license` = ?, `name` = ?, `tokens` = ?, `endpoint` = ?, `discord` = ?  WHERE `license` = ?', {license, GetPlayerName(source), json.encode(GetPlayerTokens(source)), tostring(GetPlayerEndpoint(source)), GetPlayerIdentifierByType(source, 'discord'):gsub("^discord:", ""), r.license})
+            if result.license ~= playerInfo.license or result.name ~= playerInfo.name or result.endpoint ~= playerInfo.endpoint or result.discord ~= playerInfo.discord then
+                MySQL.update('UPDATE `players` SET `license` = ?, `name` = ?, `tokens` = ?, `endpoint` = ?, `discord` = ? WHERE `license` = ?', 
+                    {playerInfo.license, playerInfo.name, playerInfo.tokens, playerInfo.endpoint, playerInfo.discord, result.license})
             end
 
-            local position = json.decode(r.position)
-
-            if position then
-                Z.Event.TriggerClient('z-spawn:spawnPlayer', source, position.x, position.y, position.z, position.h, isNewPlayer)
-            else
-                Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h, isNewPlayer)
-            end
+            local position = json.decode(result.position) or Config.Start.spawn
+            Z.Event.TriggerClient('z-spawn:spawnPlayer', source, position.x, position.y, position.z, position.h, isNewPlayer)
 
             Ctz.Wait(1000)
-
             Z.getPlayer(source).restoreWeapons()
-            firstConnection = false
         else
             isNewPlayer = true
             Z.addPlayer(source, {inventory = {}, weapons = {}})
-            MySQL.execute('INSERT INTO `players` (`license`, `tokens`, `endpoint`, `discord`, `name`, `position`, `inventory`, `weapons`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', {license, json.encode(GetPlayerTokens(source)), tostring(GetPlayerEndpoint(source)), GetPlayerIdentifierByType(source, 'discord'):gsub("^discord:", ""), GetPlayerName(source), json.encode({x = Config.Start.spawn.x, y = Config.Start.spawn.y, z = Config.Start.spawn.z, h = Config.Start.spawn.h}), json.encode({}), json.encode({})})
+            local defaultPosition = json.encode({x = Config.Start.spawn.x, y = Config.Start.spawn.y, z = Config.Start.spawn.z, h = Config.Start.spawn.h})
+            MySQL.insert('INSERT INTO `players` (`license`, `tokens`, `endpoint`, `discord`, `name`, `position`, `inventory`, `weapons`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', 
+                {license, json.encode(GetPlayerTokens(source)), tostring(GetPlayerEndpoint(source)), 
+                GetPlayerIdentifierByType(source, 'discord'):gsub("^discord:", ""), GetPlayerName(source), 
+                defaultPosition, '{}', '{}'})
             Z.Event.TriggerClient('z-spawn:spawnPlayer', source, Config.Start.spawn.x, Config.Start.spawn.y, Config.Start.spawn.z, Config.Start.spawn.h, isNewPlayer)
-            firstConnection = true
         end
-    end)
 
-    TriggerClientEvent('z-framework:playerLoaded', -1, isNewPlayer)
-    TriggerEvent('z-framework:playerLoaded')
+        TriggerClientEvent('z-framework:playerLoaded', -1, isNewPlayer)
+        TriggerEvent('z-framework:playerLoaded')
+    end)
 end)
 
 AddEventHandler('playerDropped', function(reason)
     local source = source
     local player = Z.getPlayer(source)
-    local coords = GetEntityCoords(GetPlayerPed(source))
-    local h = GetEntityHeading(GetPlayerPed(source))
+    if not player then return end
 
-    MySQL.execute('UPDATE `players` SET `position` = ? WHERE `license` = ?', {json.encode({x = coords.x, y = coords.y, z = coords.z, h = h}), GetPlayerIdentifierByType(source, 'license')})
+    local ped = GetPlayerPed(source)
+    local coords = GetEntityCoords(ped)
+    local heading = GetEntityHeading(ped)
+    local position = json.encode({x = coords.x, y = coords.y, z = coords.z, h = heading})
 
-    local save = player.updateData()
+    MySQL.update('UPDATE `players` SET `position` = ? WHERE `license` = ?', {position, player.getIdentifier()})
 
-    local message = ('Prénom: %s \n Nom: %s \n Rank: %s \n Position: %s \n License: %s \n Discord: <@%s> \n IP: %s \n Raison: %s'):format(player.getFirstName(), player.getLastName(), player.getRank(), ('x: %s, y: %s, z: %s, h: %s'):format(coords.x, coords.y, coords.z, h), player.getIdentifier(), player.getDiscord(), player.getEndpoint(), reason)
-    Z.Function.sendDiscordLog(Config.Logs.Leave, 16711680, 'Déconnexion', message, 'Z-Framework')
-
-    if save then
+    if player.updateData() then
         Z.removePlayer(source)
     end
+
+    local message = ('Prénom: %s \n Nom: %s \n Rank: %s \n Position: %s \n License: %s \n Discord: <@%s> \n IP: %s \n Raison: %s')
+        :format(player.getFirstName(), player.getLastName(), player.getRank(), position, 
+                player.getIdentifier(), player.getDiscord(), player.getEndpoint(), reason)
+    Z.Function.sendDiscordLog(Config.Logs.Leave, 16711680, 'Déconnexion', message, 'Z-Framework')
 end)
 
 AddEventHandler('onResourceStop', function(resourceName)
     if resourceName == GetCurrentResourceName() then
-        for _, playerId in pairs(GetPlayers()) do
-            local coords = GetEntityCoords(GetPlayerPed(playerId))
-            local h = GetEntityHeading(GetPlayerPed(playerId))
+        for _, playerId in ipairs(GetPlayers()) do
+            local ped = GetPlayerPed(playerId)
+            local coords = GetEntityCoords(ped)
+            local heading = GetEntityHeading(ped)
+            local position = json.encode({x = coords.x, y = coords.y, z = coords.z, h = heading})
+            local license = GetPlayerIdentifierByType(playerId, 'license')
 
-            MySQL.execute('UPDATE `players` SET `position` = ? WHERE `license` = ?', {json.encode({x = coords.x, y = coords.y, z = coords.z, h = h}), GetPlayerIdentifierByType(playerId, 'license')})
+            MySQL.update('UPDATE `players` SET `position` = ? WHERE `license` = ?', {position, license})
         end
-    else
-        return
     end
 end)
