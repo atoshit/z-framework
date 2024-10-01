@@ -32,8 +32,8 @@ local Config <const> = {
     TogglePvp = true,
     ToggleNpcDrops = false,
     ToggleNpcHealthRegeneration = false,
-    ToggleDefaultWantedLevel = true,
-    ToggleDispatchService = true,
+    ToggleDefaultWantedLevel = false,
+    ToggleDispatchService = false,
     ToggleScenarios = false,
     BigWater = false,
 

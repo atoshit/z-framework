@@ -55,9 +55,6 @@ server_scripts {
 
     -- Commands
     'server/commands/*.lua',
-
-    -- Modules
-    'server/modules/menu/*.lua',
 }
 
 client_scripts {
@@ -76,9 +73,6 @@ client_scripts {
 
     -- Class
     'client/class/*.lua',
-
-    -- Modules
-    'client/modules/menu/*.lua',
 }
 
 exports {
@@ -94,5 +88,3 @@ server_exports {
     'Z.Event.Trigger',
     'Z.Event.TriggerClient'
 }
-
--- test

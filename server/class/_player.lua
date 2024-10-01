@@ -174,6 +174,8 @@ function Z.createPlayer(source, data)
         player.inventory = {}
     end
 
+    --- Get First Name of the player
+    --- @return string Return FirstName of the player.
     function player.getFirstName()
         return player.firstName
     end
@@ -206,6 +208,8 @@ function Z.createPlayer(source, data)
         return true
     end
 
+    --- Get Age of the player
+    --- @return number Return Age of the player.
     function player.getAge()
         return player.age
     end
@@ -222,6 +226,8 @@ function Z.createPlayer(source, data)
         return true
     end
 
+    --- Get Sex of the player
+    --- @return string Return Sex of the player.
     function player.getSex()
         return player.sex
     end
