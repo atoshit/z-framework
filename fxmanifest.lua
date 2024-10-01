@@ -94,5 +94,3 @@ server_exports {
     'Z.Event.Trigger',
     'Z.Event.TriggerClient'
 }
-
--- test
