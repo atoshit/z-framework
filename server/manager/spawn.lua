@@ -15,6 +15,7 @@ Z.Event.Register('z-spawn:loadPlayer', function()
                 age = result.age,
                 sex = result.sex
             }
+
             Z.addPlayer(source, playerData)
 
             local playerInfo = {
@@ -32,9 +33,6 @@ Z.Event.Register('z-spawn:loadPlayer', function()
 
             local position = json.decode(result.position) or Config.Start.spawn
             Z.Event.TriggerClient('z-spawn:spawnPlayer', source, position.x, position.y, position.z, position.h, isNewPlayer)
-
-            Ctz.Wait(1000)
-            Z.getPlayer(source).restoreWeapons()
         else
             isNewPlayer = true
             Z.addPlayer(source, {inventory = {}, weapons = {}})
@@ -55,7 +53,6 @@ AddEventHandler('playerDropped', function(reason)
     local source = source
     local player = Z.getPlayer(source)
     if not player then return end
-
     local ped = GetPlayerPed(source)
     local coords = GetEntityCoords(ped)
     local heading = GetEntityHeading(ped)
@@ -84,3 +81,10 @@ AddEventHandler('onResourceStop', function(resourceName)
         end
     end
 end)
+
+Z.Event.Register('z-framework:playerSpawned', function()
+    local source = source
+    local player = Z.getPlayer(source)
+    if not player then return end
+    player.restoreWeapons()
+end)   

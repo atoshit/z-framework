@@ -26,6 +26,7 @@ end
 
 Z.Event.Register('z-spawn:spawnPlayer', function(x, y, z, h, firstConnection)
     spawnPlayer(x, y, z, h, firstConnection)
+
 end)
 
 Ctz.CreateThread(function()
